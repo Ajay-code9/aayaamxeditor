@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import HeroBackgroundAnimation from '../components/HeroBackgroundAnimation';
 import { Check, HelpCircle, ArrowRight, Star, Sparkles, Building, Briefcase, Zap } from 'lucide-react';
@@ -78,6 +78,8 @@ const MATRIX_FEATURES = [
 ];
 
 export default function PricingPage() {
+  const [activePlan, setActivePlan] = useState<'all' | 'Hobby' | 'Pro' | 'Enterprise'>('Pro');
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -104,36 +106,48 @@ export default function PricingPage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 relative z-10 pt-10 sm:pt-16 md:pt-20 pb-20">
 
-        {/* Mobile Quick Plan Navigator Pills */}
-        <div className="flex lg:hidden justify-center items-center gap-2 mb-8 bg-bg-primary border border-border-primary rounded-full p-1 max-w-xs mx-auto shadow-xs">
-          {PRICING_PLANS.map((tier) => (
-            <a
-              key={tier.name}
-              href={`#plan-${tier.name.toLowerCase()}`}
-              className={`flex-1 py-1.5 text-[11px] font-mono font-semibold uppercase text-center rounded-full transition-all ${
-                tier.popular
-                  ? 'bg-[#10B981] text-white shadow-xs'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              {tier.name}
-            </a>
-          ))}
+        {/* Interactive Mobile Plan Switcher Tabs */}
+        <div className="flex lg:hidden justify-center items-center gap-1.5 mb-8 bg-bg-primary border border-border-primary rounded-full p-1 max-w-xs mx-auto shadow-xs">
+          {PRICING_PLANS.map((tier) => {
+            const isSelected = activePlan === tier.name;
+            return (
+              <button
+                key={tier.name}
+                type="button"
+                onClick={() => {
+                  setActivePlan(tier.name as any);
+                  const el = document.getElementById(`plan-${tier.name.toLowerCase()}`);
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  }
+                }}
+                className={`flex-1 py-2 text-[11px] font-mono font-bold uppercase text-center rounded-full transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#10B981] text-white shadow-md'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-bg-secondary'
+                }`}
+              >
+                {tier.name}
+              </button>
+            );
+          })}
         </div>
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-24">
-          {PRICING_PLANS.map((tier) => (
-            <div
-              key={tier.name}
-              id={`plan-${tier.name.toLowerCase()}`}
-              className={`rounded-xl border p-8 flex flex-col justify-between relative transition-all duration-300 h-full ${
-                tier.popular
-                  ? 'bg-bg-primary border-[#10B981] shadow-lg ring-1 ring-[#10B981]/20 scale-102 lg:scale-105 z-10'
-                  : 'bg-bg-primary border-border-primary hover:border-text-secondary/30 shadow-xs'
-              }`}
-            >
-              {tier.popular && (
+          {PRICING_PLANS.map((tier) => {
+            const isHiddenOnMobile = activePlan !== 'all' && activePlan !== tier.name;
+            return (
+              <div
+                key={tier.name}
+                id={`plan-${tier.name.toLowerCase()}`}
+                className={`rounded-xl border p-8 flex flex-col justify-between relative transition-all duration-300 h-full ${
+                  tier.popular
+                    ? 'bg-bg-primary border-[#10B981] shadow-lg ring-1 ring-[#10B981]/20 scale-102 lg:scale-105 z-10'
+                    : 'bg-bg-primary border-border-primary hover:border-text-secondary/30 shadow-xs'
+                } ${isHiddenOnMobile ? 'hidden lg:flex' : 'flex'}`}
+              >
+                {tier.popular && (
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-md bg-[#10B981] px-4 py-1 text-[8px] font-bold uppercase tracking-widest text-white flex items-center gap-1.5 shadow-xs">
                   <Sparkles size={9} /> RECOMMENDED FOR PROFESSIONAL FLUIDITY
                 </span>
@@ -196,7 +210,8 @@ export default function PricingPage() {
                 <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
-          ))}
+          );
+        })}
         </div>
 
         {/* Dense Feature Matrix Section */}
