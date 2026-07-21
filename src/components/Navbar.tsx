@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight, Sun, Moon, Terminal } from 'lucide-react';
+import { Menu, X, ArrowRight, Sun, Moon, Terminal, Download } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
@@ -134,8 +134,17 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Theme Toggle + Menu button */}
+          {/* Mobile Quick Download + Theme Toggle + Menu button */}
           <div className="flex md:hidden items-center gap-2">
+            <Link
+              to="/download"
+              className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-r from-[#00106B] via-[#0284C7] to-[#10B981] text-white shadow-xs cursor-pointer overflow-hidden active:scale-95 transition-all"
+              aria-label="Download AayaamX"
+              title="Download AayaamX"
+            >
+              <Download size={15} />
+            </Link>
+
             <motion.button
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.05 }}
@@ -187,16 +196,24 @@ export default function Navbar() {
             className="md:hidden border-b border-border-primary bg-bg-primary"
           >
             <div className="space-y-1 px-6 pb-6 pt-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.to}
-                  onClick={() => setIsOpen(false)}
-                  className="block rounded-lg py-2.5 text-xs font-mono uppercase tracking-wider text-text-secondary hover:bg-bg-secondary hover:text-text-primary px-3 transition-all"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.to}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center justify-between rounded-lg py-2.5 px-3 text-xs font-mono uppercase tracking-wider transition-all ${
+                      isActive
+                        ? 'bg-bg-secondary text-[#10B981] font-bold border border-[#10B981]/20'
+                        : 'text-text-secondary hover:bg-bg-secondary hover:text-text-primary'
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-sm shadow-[#10B981]" />}
+                  </Link>
+                );
+              })}
               <div className="mt-4 border-t border-border-primary pt-4 flex flex-col gap-3 px-3">
                 <Link
                   to="/signin"

@@ -79,7 +79,7 @@ export default function FeaturesPage() {
       className="bg-bg-secondary text-text-primary min-h-screen transition-colors duration-300"
     >
       {/* Editorial Header */}
-      <section className="min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
+      <section className="py-12 sm:py-16 md:min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-10 md:pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
         <HeroBackgroundAnimation variant="page" />
         <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 text-center my-auto">
           <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-4">
