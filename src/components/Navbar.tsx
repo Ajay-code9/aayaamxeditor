@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, Sun, Moon, Terminal } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
 import TerminalModal from './TerminalModal';
@@ -16,6 +16,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +66,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <Link to="/" className="group flex items-center select-none">
+            <Link to="/" onClick={() => setIsOpen(false)} className="group flex items-center select-none">
               <span className="sm:hidden"><Logo size="sm" /></span>
               <span className="hidden sm:flex"><Logo size="md" /></span>
             </Link>
