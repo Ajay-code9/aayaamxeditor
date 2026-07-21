@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-border-primary: var(--border-primary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  
+  --color-brand-blue: #00106B;
+  --color-brand-green: #10B981;
+  --color-brand-orange: #EA580C;
+  --color-brand-red: #10B981;
+  --color-brand-red-hover: #059669;
+
+  /* Custom xs breakpoint for small phone screens */
+  --breakpoint-xs: 475px;
+}
+
+/* CSS Custom Properties interpolation for buttery-smooth theme morphing */
+@property --bg-primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F8FAF8;
+}
+@property --bg-secondary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFFFF;
+}
+@property --bg-card {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFFFF;
+}
+@property --border-primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #CBD5E1;
+}
+@property --text-primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #020617;
+}
+@property --text-secondary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1E293B;
+}
+
+:root {
+  --bg-primary: #F8FAF8; /* Clean light gray-tinted background */
+  --bg-secondary: #FFFFFF; /* Light pure white background */
+  --bg-card: #FFFFFF; /* Light card background */
+  --border-primary: #CBD5E1; /* High contrast clean borders */
+  --text-primary: #020617; /* Deep ultra-dark primary text */
+  --text-secondary: #1E293B; /* Crisp, high-contrast dark slate secondary text */
+  --accent: #10B981;
+  --accent-hover: #059669;
+}
+
+.dark {
+  --bg-primary: #0B132A; /* Deep navy dark theme matching logo royal blue */
+  --bg-secondary: #111C3A; /* Secondary deep navy background */
+  --bg-card: #162447; /* Card background */
+  --border-primary: rgba(255, 255, 255, 0.1); /* Subtle border */
+  --text-primary: #F8FAFC; /* Clean high-contrast primary text */
+  --text-secondary: #94A3B8; /* Soft secondary subtext */
+  --accent: #10B981;
+  --accent-hover: #34D399;
+}
+
+/* Instant Theme Switching (No slow transition delays) */
+html.theme-active,
+html.theme-active * {
+  transition: none !important;
+}
+
+/* ==========================================================================
+   Custom Stylish Scrollbar (Thin, Theme-Adaptive & Brand Accent)
+   ========================================================================== */
+
+/* Firefox Scrollbar Settings */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 10, 10, 0.25) transparent;
+}
+
+html.dark, .dark {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) Scrollbar Width & Track */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Light Theme Scrollbar Thumb (Bright, Clean, Sleek) */
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 10, 10, 0.2);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fe060d;
+}
+
+/* Dark Theme Scrollbar Thumb (Dark Slate / Semi-Transparent White Glow) */
+.dark ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb,
+html.dark::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover,
+html.dark::-webkit-scrollbar-thumb:hover {
+  background: #fe060d;
+}
+
