@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import HeroBackgroundAnimation from '../components/HeroBackgroundAnimation';
 import { Calendar, User, Clock, ArrowRight, Tag, BookOpen, Search } from 'lucide-react';
 
 const BLOG_POSTS = [
@@ -67,30 +66,29 @@ export default function BlogPage() {
       transition={{ duration: 0.4 }}
       className="bg-bg-primary text-text-primary min-h-screen transition-colors duration-300"
     >
-      {/* Title Hero Section */}
-      <section className="py-12 sm:py-16 md:min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-10 md:pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
-        <HeroBackgroundAnimation variant="page" />
-        <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 text-center my-auto">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-tight mb-6 max-w-4xl mx-auto">
+      {/* Compact Title Hero Section */}
+      <section className="pt-20 sm:pt-24 pb-1 sm:pb-2 relative overflow-hidden bg-bg-primary transition-colors duration-300">
+        <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary mb-2.5">
             The AayaamX Blog
           </h1>
-          <p className="text-sm sm:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-xl mx-auto">
             Detailed engineering breakdowns, design analyses, and technical release announcements straight from our core compiler group.
           </p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 pt-16 md:pt-20 pb-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 pt-2 sm:pt-3 pb-12">
 
         {/* Categories and Search Filters */}
-        <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center pb-8 border-b border-border-primary mb-12">
+        <div className="flex flex-col md:flex-row gap-3 justify-between items-start md:items-center pb-4 border-b border-border-primary mb-6">
           {/* Category Tabs */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase transition-all cursor-pointer ${
                   selectedCategory === cat 
                     ? 'bg-text-primary text-bg-primary shadow-xs' 
                     : 'bg-bg-secondary text-text-secondary border border-border-primary hover:border-text-secondary/30'
@@ -102,13 +100,13 @@ export default function BlogPage() {
           </div>
 
           {/* Search bar */}
-          <div className="relative w-full md:w-80">
-            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-secondary/60" />
+          <div className="relative w-full md:w-64">
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary/60" />
             <input 
               type="text" 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full text-xs bg-bg-secondary border border-border-primary rounded-lg pl-9 pr-3.5 py-2.5 focus:outline-none focus:border-text-secondary/40 text-text-primary font-mono"
+              className="w-full text-[11px] bg-bg-secondary border border-border-primary rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:border-text-secondary/40 text-text-primary font-mono"
               placeholder="Search articles..."
             />
           </div>

@@ -119,7 +119,7 @@ export default function ProductPresentation() {
               
               {/* macOS Header */}
               <MacTerminalHeader title="AayaamX Interactive Studio">
-                <div className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono shadow-xs">
+                <div className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md shadow-xs">
                   {activeTab === 'build' && '✨ Plain English AI Generator'}
                   {activeTab === 'fix' && '⚡ 1-Click Error Auto-Repair'}
                   {activeTab === 'private' && '🔒 100% Offline Vault'}

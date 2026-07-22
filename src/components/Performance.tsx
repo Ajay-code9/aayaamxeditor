@@ -60,15 +60,15 @@ export default function Performance() {
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-border-primary mb-4">
-                    <span className="text-xs font-bold text-text-primary font-mono uppercase tracking-wider">{m.label}</span>
-                    <span className="text-[10px] text-emerald-400 font-bold font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full">{m.unit}</span>
+                    <span className="text-xs font-bold text-text-primary uppercase tracking-wider">{m.label}</span>
+                    <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full">{m.unit}</span>
                   </div>
                   <p className="text-xs text-text-secondary leading-relaxed mb-6">{m.desc}</p>
                 </div>
 
                 <div className="space-y-4">
                   <div className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-mono text-text-secondary">
+                    <div className="flex justify-between text-xs text-text-secondary">
                       <span>Traditional Editors</span>
                       <span className="font-semibold">{m.others} {m.unit}</span>
                     </div>
@@ -84,7 +84,7 @@ export default function Performance() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-mono text-text-primary font-bold">
+                    <div className="flex justify-between text-xs text-text-primary font-bold">
                       <span className="flex items-center gap-1.5">
                         <Zap size={13} className="text-emerald-400 fill-emerald-400" />
                         AayaamX Editor
@@ -103,7 +103,7 @@ export default function Performance() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-border-primary text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                <div className="mt-6 pt-4 border-t border-border-primary text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
                   <span>⚡ {Math.round(m.others / m.aayaam)}x Better Performance</span>
                 </div>
               </motion.div>

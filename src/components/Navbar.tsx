@@ -79,10 +79,10 @@ export default function Navbar() {
                 key={link.name}
                 to={link.to}
                 className={({ isActive }) => 
-                  `text-xs font-mono uppercase tracking-wider transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-[#10B981] after:transition-all hover:after:w-full ${
+                  `text-xs font-semibold uppercase tracking-wider transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-[#10B981] after:transition-all hover:after:w-full ${
                     isActive 
                       ? 'text-[#10B981] font-bold after:w-full' 
-                      : 'text-text-secondary hover:text-text-primary after:w-0'
+                      : 'text-slate-900 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white after:w-0'
                   }`
                 }
               >
@@ -203,10 +203,10 @@ export default function Navbar() {
                     key={link.name}
                     to={link.to}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center justify-between rounded-lg py-2.5 px-3 text-xs font-mono uppercase tracking-wider transition-all ${
+                    className={`flex items-center justify-between rounded-lg py-2.5 px-3 text-xs uppercase tracking-wider transition-all ${
                       isActive
                         ? 'bg-bg-secondary text-[#10B981] font-bold border border-[#10B981]/20'
-                        : 'text-text-secondary hover:bg-bg-secondary hover:text-text-primary'
+                        : 'text-slate-900 dark:text-slate-200 hover:bg-bg-secondary hover:text-slate-950 dark:hover:text-white'
                     }`}
                   >
                     <span>{link.name}</span>

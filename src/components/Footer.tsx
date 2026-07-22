@@ -52,7 +52,7 @@ export default function Footer() {
         {/* High-Impact Download / Shell CTA Card */}
         <div className="rounded-2xl border border-border-primary bg-bg-secondary p-8 md:p-12 mb-20 relative overflow-hidden flex flex-col md:flex-row gap-12 items-center justify-between shadow-xs">
           <div className="space-y-4 max-w-md">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono flex items-center gap-1.5">
+            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase flex items-center gap-1.5">
               <Terminal size={12} />
               Instant Installation
             </div>
@@ -121,7 +121,7 @@ export default function Footer() {
           {/* Links Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title} className="space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-text-primary font-mono">{title}</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-primary">{title}</h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.name}>
@@ -141,7 +141,7 @@ export default function Footer() {
         {/* Bottom copyright section */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-text-secondary">
           <p>© 2026 AayaamX Technologies Inc. All rights reserved.</p>
-          <div className="flex gap-6 font-mono text-[10px]">
+          <div className="flex gap-6 text-[10px]">
             <Link to="/security" className="hover:text-text-primary transition-colors">Security Trust Posture</Link>
             <Link to="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>

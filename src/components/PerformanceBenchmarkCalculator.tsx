@@ -64,11 +64,11 @@ export default function PerformanceBenchmarkCalculator() {
     <div className="w-full bg-bg-secondary border border-border-primary rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl relative overflow-hidden">
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6 sm:mb-8 pb-5 sm:pb-6 border-b border-border-primary">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 font-mono text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2">
             <Zap size={12} className="sm:w-3.5 sm:h-3.5" />
             DYNAMIC BENCHMARK SIMULATION
           </div>
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-text-primary font-mono tracking-tight">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-text-primary tracking-tight">
             Compare AayaamX Memory & Latency
           </h3>
           <p className="text-[11px] sm:text-xs text-text-secondary mt-0.5">
@@ -78,12 +78,12 @@ export default function PerformanceBenchmarkCalculator() {
 
         {/* Project Size Selector */}
         <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 bg-bg-primary p-1.5 rounded-xl border border-border-primary shrink-0 w-full lg:w-auto">
-          <span className="text-[10px] font-mono text-text-secondary uppercase tracking-wider px-1.5 font-bold">Codebase:</span>
+          <span className="text-[10px] text-text-secondary uppercase tracking-wider px-1.5 font-bold">Codebase:</span>
           {(['10k', '100k', '500k', '1M'] as ProjectSize[]).map((size) => (
             <button
               key={size}
               onClick={() => setProjectSize(size)}
-              className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-mono transition-all cursor-pointer text-center ${
+              className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs transition-all cursor-pointer text-center ${
                 projectSize === size
                   ? 'bg-[#10B981] text-white font-bold shadow-xs'
                   : 'text-text-secondary hover:text-text-primary hover:bg-bg-secondary'
@@ -102,7 +102,7 @@ export default function PerformanceBenchmarkCalculator() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         {/* Left Column: Editor Selector Cards */}
         <div className="lg:col-span-4 space-y-2.5 sm:space-y-3">
-          <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-text-secondary block mb-1">
+          <label className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-text-secondary block mb-1">
             Select Compare Target:
           </label>
 
@@ -122,14 +122,14 @@ export default function PerformanceBenchmarkCalculator() {
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   <div className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full shrink-0 ${isSelected ? 'bg-[#10B981]' : 'bg-gray-500'}`} />
                   <div>
-                    <div className="text-xs font-bold font-mono text-text-primary">{ed.name}</div>
-                    <div className="text-[10px] text-text-secondary mt-0.5 font-mono">
+                    <div className="text-xs font-bold text-text-primary">{ed.name}</div>
+                    <div className="text-[10px] text-text-secondary mt-0.5">
                       RAM: {ed.ramMB[projectSize]} MB | Latency: {ed.latencyMs[projectSize]} ms
                     </div>
                   </div>
                 </div>
                 {isSelected && (
-                  <span className="text-[9px] sm:text-[10px] font-mono font-bold text-[#10B981] bg-[#10B981]/20 px-1.5 sm:px-2 py-0.5 rounded border border-[#10B981]/30 shrink-0 ml-1">
+                  <span className="text-[9px] sm:text-[10px] font-bold text-[#10B981] bg-[#10B981]/20 px-1.5 sm:px-2 py-0.5 rounded border border-[#10B981]/30 shrink-0 ml-1">
                     Active
                   </span>
                 )}
@@ -143,20 +143,21 @@ export default function PerformanceBenchmarkCalculator() {
           {/* Header comparison badges */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4">
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Memory Saved</div>
-              <div className="text-lg sm:text-2xl font-black text-[#10B981] font-mono mt-0.5 sm:mt-1">
+              <div className="text-[9px] sm:text-[10px] text-text-secondary uppercase font-semibold">Memory Saved</div>
+              <div className="text-lg sm:text-2xl font-black text-[#10B981] mt-0.5 sm:mt-1">
                 {ramSavedRatio}x <span className="text-[10px] sm:text-xs font-normal text-text-secondary">less RAM</span>
               </div>
             </div>
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Response Speed</div>
-              <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono mt-0.5 sm:mt-1">
+              <div className="text-[9px] sm:text-[10px] text-text-secondary uppercase font-semibold">Response Speed</div>
+              <div className="text-lg sm:text-2xl font-black text-emerald-400 mt-0.5 sm:mt-1">
                 {speedupRatio}x <span className="text-[10px] sm:text-xs font-normal text-text-secondary">faster</span>
               </div>
             </div>
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl col-span-2 sm:col-span-1">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Battery Saved</div>
-              <div className="text-lg sm:text-2xl font-black text-blue-400 font-mono mt-0.5 sm:mt-1">
+              <div className="text-[9px] sm:text-[10px] text-text-secondary uppercase font-semibold">Battery Saved</div>
+              <div className="text-lg sm:text-2xl font-black text-blue-400 mt-0.5 sm:mt-1">
+                -90% <span className="text-[10px] sm:text-xs font-normal text-text-secondary">battery drain</span>
                 -90% <span className="text-[10px] sm:text-xs font-normal text-text-secondary">battery drain</span>
               </div>
             </div>

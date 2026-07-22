@@ -26,12 +26,12 @@
 @property --bg-primary {
   syntax: "<color>";
   inherits: true;
-  initial-value: #F8FAF8;
+  initial-value: #F3F4F6;
 }
 @property --bg-secondary {
   syntax: "<color>";
   inherits: true;
-  initial-value: #FFFFFF;
+  initial-value: #F9FAFB;
 }
 @property --bg-card {
   syntax: "<color>";
@@ -41,29 +41,29 @@
 @property --border-primary {
   syntax: "<color>";
   inherits: true;
-  initial-value: #CBD5E1;
+  initial-value: #E2E8F0;
 }
 @property --text-primary {
   syntax: "<color>";
   inherits: true;
-  initial-value: #020617;
+  initial-value: #0F172A;
 }
 @property --text-secondary {
   syntax: "<color>";
   inherits: true;
-  initial-value: #1E293B;
+  initial-value: #334155;
 }
 
 :root {
-  --bg-primary: #F8FAF8; /* Clean light gray-tinted background */
-  --bg-secondary: #FFFFFF; /* Light pure white background */
-  --bg-card: #FFFFFF; /* Light card background */
-  --border-primary: #CBD5E1; /* Slate-300 border */
-  --text-primary: #020617; /* Slate-950 main text */
-  --text-secondary: #475569; /* Slate-600 secondary text */
+  --bg-primary: #F3F4F6; /* Eye-relaxing soft off-white background (Gray-100) */
+  --bg-secondary: #F9FAFB; /* Soft light secondary background (Gray-50) */
+  --bg-card: #FFFFFF; /* Elevated clean white cards with crisp separation */
+  --border-primary: #E2E8F0; /* Soft Slate-200 border */
+  --text-primary: #0F172A; /* Slate-900 ultra-crisp headline text */
+  --text-secondary: #334155; /* Slate-700 high-contrast readable body text */
   --accent: #10B981; /* Emerald-500 primary action button */
   --accent-hover: #059669; /* Emerald-600 hover action button */
-  --star-color: rgba(15, 23, 42, 0.55);
+  --star-color: rgba(15, 23, 42, 0.4);
 }
 
 .dark {
@@ -141,8 +141,8 @@ html.dark::-webkit-scrollbar-thumb:hover {
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
 .dark .bg-grid-pattern {
@@ -153,6 +153,11 @@ html.dark::-webkit-scrollbar-thumb:hover {
 }
 
 .bg-dot-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.dark .bg-dot-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 16px 16px;
 }

@@ -93,7 +93,7 @@ export default function Hero() {
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary max-w-3xl leading-[1.12] mb-6 text-center mx-auto">
               Code 10x Faster with AI Built Right Into Your <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">Editor</span>
             </h1>
-            
+
             {/* 3. Short Supporting Description */}
             <p className="max-w-xl mx-auto text-base sm:text-xl text-text-secondary leading-relaxed text-center mb-10 font-normal">
               AayaamX is a super-fast AI code editor. Write, fix, and understand your code instantly — with zero delay and complete privacy.
@@ -108,7 +108,7 @@ export default function Hero() {
                 <span>Start Building Free</span>
                 <ArrowRight size={16} />
               </Link>
-              
+
               <Link
                 to="/pricing"
                 className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-border-primary bg-bg-card/80 px-8 py-4 text-base font-bold text-text-primary hover:bg-bg-secondary hover:border-text-secondary/40 shadow-md transition-all cursor-pointer"
@@ -118,7 +118,7 @@ export default function Hero() {
             </div>
 
             {/* 5. Small Trust Row */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-text-secondary font-mono pt-4 border-t border-border-primary/40">
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-text-secondary pt-4 border-t border-border-primary/40">
               <span className="flex items-center gap-1.5 text-emerald-400">
                 <CheckCircle2 size={13} />
                 <span>★ 14,280 GitHub Stars</span>
@@ -136,35 +136,41 @@ export default function Hero() {
             </div>
           </AnimatedGroup>
 
-          {/* Dual Theme Code Editor Image Showcase with Bottom Gradient Fade Mask */}
+          {/* Theme-Adaptive Code Editor Image Showcase with Seamless Bottom Opacity Fade */}
           <div className="mt-12 sm:mt-16 w-full max-w-6xl mx-auto relative group">
-            {/* Soft Ambient Radial Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/25 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition duration-1000" />
+            {/* Subtle Ambient Radial Glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-t-3xl blur-xl opacity-20 group-hover:opacity-35 transition duration-500 pointer-events-none" />
 
-            <div className="relative rounded-2xl border border-border-primary bg-bg-card shadow-2xl overflow-hidden transition-all">
-              {/* Bottom Gradient Opacity Fade Mask */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-bg-primary via-bg-primary/80 to-transparent z-20" />
-
+            <div
+              className="relative rounded-t-2xl border-x border-t border-border-primary/80 overflow-hidden bg-bg-card shadow-2xl"
+              style={{
+                WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 95%)',
+                maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 95%)'
+              }}
+            >
               {/* Dark Theme Code Editor Screenshot */}
               <img
-                src="/code-editor-blacktheme.png"
-                alt="AayaamX AI Code Editor Dark Theme"
-                className="hidden dark:block w-full h-auto object-cover rounded-2xl relative z-10"
+                src="/code-editornewblack.png"
+                alt="AayaamX AI Code Editor Dark Studio"
+                className="hidden dark:block w-full h-auto object-cover rounded-t-2xl transition-all duration-300"
               />
 
               {/* Light/Bright Theme Code Editor Screenshot */}
               <img
-                src="/code-editor-brighttheme.png"
-                alt="AayaamX AI Code Editor Bright Theme"
-                className="block dark:hidden w-full h-auto object-cover rounded-2xl relative z-10"
+                src="/code-editornewwhite.png"
+                alt="AayaamX AI Code Editor Light Studio"
+                className="block dark:hidden w-full h-auto object-cover rounded-t-2xl transition-all duration-300"
               />
+
+              {/* Bottom Gradient Fade Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg-primary via-bg-primary/85 to-transparent pointer-events-none z-10" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Customer Vector Logo Cloud Bar */}
-      <section className="py-12 border-t border-b border-border-primary/60 bg-bg-secondary/50 relative z-10">
+      <section className="pt-4 pb-12 bg-bg-primary relative z-10">
         <div className="mx-auto max-w-7xl px-6 md:px-8 text-center">
           <p className="text-xs font-mono font-bold tracking-widest uppercase text-text-secondary mb-8">
             TRUSTED BY ENGINEERS AT WORLD-CLASS TEAMS
