@@ -82,10 +82,7 @@ export default function FeaturesPage() {
       <section className="py-12 sm:py-16 md:min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-10 md:pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
         <HeroBackgroundAnimation variant="page" />
         <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 text-center my-auto">
-          <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-4">
-            01. Technical Blueprint
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-text-primary mb-6 max-w-3xl mx-auto leading-tight">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary mb-6 max-w-4xl mx-auto leading-tight">
             Designed for precision. <br />Built for absolute flow.
           </h1>
           <p className="text-sm sm:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
@@ -115,9 +112,6 @@ export default function FeaturesPage() {
               >
                 {/* Text column */}
                 <div className={`lg:col-span-6 space-y-6 ${!isEven ? 'lg:order-last' : ''}`}>
-                  <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono">
-                    {feat.tag}
-                  </div>
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-bg-secondary border border-border-primary flex items-center justify-center shadow-xs">
                       {feat.icon}

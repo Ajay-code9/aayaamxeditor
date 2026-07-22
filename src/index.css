@@ -58,22 +58,24 @@
   --bg-primary: #F8FAF8; /* Clean light gray-tinted background */
   --bg-secondary: #FFFFFF; /* Light pure white background */
   --bg-card: #FFFFFF; /* Light card background */
-  --border-primary: #CBD5E1; /* High contrast clean borders */
-  --text-primary: #020617; /* Deep ultra-dark primary text */
-  --text-secondary: #1E293B; /* Crisp, high-contrast dark slate secondary text */
-  --accent: #10B981;
-  --accent-hover: #059669;
+  --border-primary: #CBD5E1; /* Slate-300 border */
+  --text-primary: #020617; /* Slate-950 main text */
+  --text-secondary: #475569; /* Slate-600 secondary text */
+  --accent: #10B981; /* Emerald-500 primary action button */
+  --accent-hover: #059669; /* Emerald-600 hover action button */
+  --star-color: rgba(15, 23, 42, 0.55);
 }
 
 .dark {
-  --bg-primary: #0B132A; /* Deep navy dark theme matching logo royal blue */
-  --bg-secondary: #111C3A; /* Secondary deep navy background */
-  --bg-card: #162447; /* Card background */
-  --border-primary: rgba(255, 255, 255, 0.1); /* Subtle border */
-  --text-primary: #F8FAFC; /* Clean high-contrast primary text */
-  --text-secondary: #94A3B8; /* Soft secondary subtext */
-  --accent: #10B981;
-  --accent-hover: #34D399;
+  --bg-primary: #000000; /* Pure pitch dark OLED */
+  --bg-secondary: #08080a; /* Dark secondary background */
+  --bg-card: #111115; /* Elevated dark card surface */
+  --border-primary: rgba(255, 255, 255, 0.1); /* Crisp glass border */
+  --text-primary: #F8FAFC; /* Slate-50 main text */
+  --text-secondary: #94A3B8; /* Slate-400 secondary text */
+  --accent: #10B981; /* Emerald-500 accent */
+  --accent-hover: #059669; /* Emerald-600 hover */
+  --star-color: rgba(255, 255, 255, 0.85);
 }
 
 /* Instant Theme Switching (No slow transition delays) */
@@ -132,6 +134,118 @@ html.dark::-webkit-scrollbar-thumb {
 .dark ::-webkit-scrollbar-thumb:hover,
 html.dark ::-webkit-scrollbar-thumb:hover,
 html.dark::-webkit-scrollbar-thumb:hover {
-  background: #fe060d;
+  background: #10B981;
 }
+
+/* 21st.dev & Modern UI Components Utilities */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.glow-card {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(59, 130, 246, 0.1), rgba(255, 255, 255, 0.05));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(59, 130, 246, 0.6), rgba(168, 85, 247, 0.4));
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-beam-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam-spin 6s linear infinite;
+}
+
+/* Cosmic Parallax Star Background Animations */
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+
+.cosmic-stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  animation: animStar 50s linear infinite;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cosmic-stars-medium {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  animation: animStar 100s linear infinite;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cosmic-stars-large {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  animation: animStar 150s linear infinite;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+
 

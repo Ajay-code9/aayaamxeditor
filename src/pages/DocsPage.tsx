@@ -191,7 +191,7 @@ export default function DocsPage() {
       transition={{ duration: 0.4 }}
       className="bg-bg-primary text-text-primary min-h-screen pt-28 md:pt-36 pb-20 md:pb-28 transition-colors duration-300 relative overflow-hidden"
     >
-      <HeroBackgroundAnimation variant="page" />
+      <HeroBackgroundAnimation variant="subtle" />
       <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           

@@ -94,17 +94,14 @@ export default function Workflow() {
 
           {/* Workflow description panel on Right */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono">
-              05. Keyboard Flow
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-tight">
-              Keep your fingers on the keys.
+              Keep Your Hands on <br />the Keyboard.
             </h2>
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-              True velocity relies on absolute muscle memory. Every command inside AayaamX is mapped to elegant physical key chords, preventing you from ever breaking concentration to reach for the cursor.
+              Fast coding comes from quick keyboard shortcuts. AayaamX lets you trigger AI actions with simple key shortcuts without reaching for your mouse.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary/70 leading-relaxed">
-              We migrated standard settings from Vim, VS Code, and Emacs, creating an unified interactive model that adapts to your existing preferences on your very first run.
+              Works seamlessly with all your favorite keybindings from VS Code, Vim, and Cursor right out of the box.
             </p>
 
             <div className="pt-4 flex items-center gap-4">

@@ -143,21 +143,21 @@ export default function PerformanceBenchmarkCalculator() {
           {/* Header comparison badges */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4">
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Memory Reduction</div>
+              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Memory Saved</div>
               <div className="text-lg sm:text-2xl font-black text-[#10B981] font-mono mt-0.5 sm:mt-1">
                 {ramSavedRatio}x <span className="text-[10px] sm:text-xs font-normal text-text-secondary">less RAM</span>
               </div>
             </div>
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Syntax Latency</div>
+              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Response Speed</div>
               <div className="text-lg sm:text-2xl font-black text-emerald-400 font-mono mt-0.5 sm:mt-1">
                 {speedupRatio}x <span className="text-[10px] sm:text-xs font-normal text-text-secondary">faster</span>
               </div>
             </div>
             <div className="p-2.5 sm:p-3 bg-bg-secondary border border-border-primary rounded-xl col-span-2 sm:col-span-1">
-              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Battery Drain</div>
+              <div className="text-[9px] sm:text-[10px] text-text-secondary font-mono uppercase font-semibold">Battery Saved</div>
               <div className="text-lg sm:text-2xl font-black text-blue-400 font-mono mt-0.5 sm:mt-1">
-                -90% <span className="text-[10px] sm:text-xs font-normal text-text-secondary">power used</span>
+                -90% <span className="text-[10px] sm:text-xs font-normal text-text-secondary">battery drain</span>
               </div>
             </div>
           </div>
@@ -165,8 +165,8 @@ export default function PerformanceBenchmarkCalculator() {
           {/* Bar Chart 1: RAM Usage */}
           <div className="space-y-2">
             <div className="flex justify-between items-center text-[11px] sm:text-xs font-mono">
-              <span className="text-text-primary font-bold">RAM Memory Footprint</span>
-              <span className="text-text-secondary">{projectSize} lines</span>
+              <span className="text-text-primary font-bold">Computer RAM Memory Used</span>
+              <span className="text-text-secondary">{projectSize} lines project</span>
             </div>
 
             {/* AayaamX Bar */}

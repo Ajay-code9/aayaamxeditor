@@ -29,14 +29,11 @@ export default function Features() {
         
         {/* Editorial Heading */}
         <div className="max-w-2xl mb-20">
-          <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-3">
-            04. Core Capabilities
-          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary mb-6">
-            Engineered for precision. Built for flow.
+            Everything You Need to Write Great Code.
           </h2>
           <p className="text-base text-text-secondary leading-relaxed">
-            AayaamX does not compromise on mechanical velocity. Every system sub-module operates under a strict sub-millisecond compile contract.
+            Powerful AI features designed to keep you focused, productive, and coding without interruptions.
           </p>
         </div>
 

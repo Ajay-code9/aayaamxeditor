@@ -25,11 +25,8 @@ export default function ContactPage() {
       <section className="min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
         <HeroBackgroundAnimation variant="page" />
         <div className="mx-auto max-w-6xl px-6 md:px-8 relative z-10 text-center my-auto">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-4">
-              07. Communication Node
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-text-primary leading-tight">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-tight">
               Connect with us.
             </h1>
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed mt-4">

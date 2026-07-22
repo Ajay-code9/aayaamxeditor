@@ -8,45 +8,44 @@ import { motion } from 'motion/react';
 import { Cpu, Layers, Terminal, ArrowRight, Activity, Zap } from 'lucide-react';
 
 export default function AIStory() {
-  const [hoveredNode, setHoveredNode] = useState<number | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<number | null>(0);
 
   const pipelineNodes = [
     {
       id: 1,
-      title: 'Kernel Buffer',
-      sub: 'Event capturing',
-      desc: 'Keystrokes are read directly from the C++ window message loop, bypassing browser-engine latency layers entirely.',
-      icon: <Terminal size={16} className="text-[#10B981]" />
+      title: 'Local Kernel Buffer',
+      sub: 'Zero-latency event listener',
+      desc: 'Keystrokes are captured directly from the window message loop, bypassing browser-engine overhead entirely.',
+      icon: <Terminal size={16} className="text-emerald-400" />
     },
     {
       id: 2,
-      title: 'AST Live Indexer',
-      sub: 'Memory compiling',
-      desc: 'A background language server maintains an active Abstract Syntax Tree of your project in memory, checking type contracts in real-time.',
-      icon: <Layers size={16} className="text-[#10B981]" />
+      title: 'AST Live Memory Indexer',
+      sub: 'Real-time AST parsing',
+      desc: 'A background language server maintains an in-memory Abstract Syntax Tree of your project to evaluate types instantaneously.',
+      icon: <Layers size={16} className="text-emerald-400" />
     },
     {
       id: 3,
-      title: 'Local Context Core',
-      sub: 'Vector reference',
-      desc: 'Local embeddings are mapped to your codebase schema instantly, supplying exact references without full-file scans.',
-      icon: <Cpu size={16} className="text-[#10B981]" />
+      title: 'Local Vector Context Core',
+      sub: 'Smart symbol search',
+      desc: 'Local embeddings index your repository without uploading any source code to third-party cloud servers.',
+      icon: <Cpu size={16} className="text-emerald-400" />
     },
     {
       id: 4,
-      title: 'Agent Synthesizer',
-      sub: 'Model reasoning',
-      desc: 'Sub-30ms execution pipelines translate prompt instructions directly into verified code, compiling changes safely before rendering.',
-      icon: <Zap size={16} className="text-[#10B981]" />
+      title: 'Native Agent Synthesizer',
+      sub: 'Direct buffer inline edits',
+      desc: 'Sub-30ms execution pipelines translate natural prompt instructions into validated code edits directly inside your file.',
+      icon: <Zap size={16} className="text-emerald-400" />
     }
   ];
 
   return (
-    <section id="ai-story" className="py-24 md:py-32 bg-bg-primary text-text-primary relative overflow-hidden border-b border-border-primary transition-colors duration-300">
+    <section id="ai-story" className="py-20 md:py-28 bg-bg-primary text-text-primary relative overflow-hidden border-b border-border-primary transition-colors duration-300">
       {/* Mesh glowing background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-radial from-[#10B981]/5 to-transparent blur-3xl opacity-80" />
-        <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] bg-radial from-[#10B981]/2 to-transparent blur-2xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-500/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
@@ -54,60 +53,57 @@ export default function AIStory() {
           
           {/* Editorial Intro Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono">
-              02. The AI Shift
-            </div>
-            
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] text-text-primary">
-              AI shouldn’t be <br />
-              an afterthought.
+              AI Built Directly Into <br />
+              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                Your Editor Core.
+              </span>
             </h2>
             
-            <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-              Adding ChatGPT into a side panel isn't intelligence. It’s a glorified browser. To truly change development, the model must sit underneath the core loops of the editor.
+            <p className="text-base text-text-secondary leading-relaxed">
+              No more copying and pasting code from a browser or sidebar. AayaamX gives you instant AI suggestions right where you type.
             </p>
             
-            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed opacity-85">
-              AayaamX was designed around an unified engine. Keystroke listeners, compiler servers, local embeddings, and model requests share the same thread, preventing typical sluggishness and keeping you in perfect flow.
+            <p className="text-sm text-text-secondary leading-relaxed">
+              Everything runs locally on your machine, giving you super-fast responses without depending on slow internet servers.
             </p>
 
-            <div className="pt-4 flex items-center gap-2.5 text-xs text-[#10B981] font-bold tracking-wider uppercase font-mono">
+            <div className="pt-2 flex items-center gap-2 text-xs text-emerald-500 font-mono font-semibold">
               <Activity size={14} className="animate-pulse" />
-              <span>Direct-pipeline architecture</span>
+              <span>Runs Offline • Zero Lag</span>
             </div>
           </div>
 
           {/* Interactive Pipeline Visualization Column */}
           <div className="lg:col-span-7 flex flex-col justify-center">
-            <div className="mb-6 flex justify-between items-center px-2">
-              <span className="text-xs font-bold tracking-widest uppercase text-text-secondary font-mono">
-                Active Processing Pipeline
+            <div className="mb-4 flex justify-between items-center px-1">
+              <span className="text-xs font-bold tracking-wider uppercase text-text-secondary font-mono">
+                Pipeline Execution Steps
               </span>
-              <span className="text-[10px] text-text-secondary font-mono bg-bg-secondary border border-border-primary px-2 py-0.5 rounded">
-                Hover Nodes to Inspect
+              <span className="text-[10px] text-emerald-500 font-mono bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                Interactive Nodes
               </span>
             </div>
 
-            {/* Pipeline Stack */}
-            <div className="space-y-4 relative">
+            {/* Pipeline Stack with 21st.dev style cards */}
+            <div className="space-y-3.5 relative">
               {/* Vertical connecting line */}
-              <div className="absolute left-10 top-6 bottom-6 w-[1.5px] bg-linear-to-b from-[#10B981]/60 via-[#10B981]/20 to-transparent pointer-events-none" />
+              <div className="absolute left-8 top-6 bottom-6 w-[2px] bg-gradient-to-b from-emerald-500/60 via-emerald-500/20 to-transparent pointer-events-none" />
 
               {pipelineNodes.map((node, index) => (
                 <div
                   key={node.id}
                   onMouseEnter={() => setHoveredNode(index)}
-                  onMouseLeave={() => setHoveredNode(null)}
-                  className={`flex items-start gap-5 p-5 rounded-xl border transition-all duration-300 relative group cursor-pointer ${
+                  className={`glow-card flex items-start gap-4 p-5 rounded-2xl border transition-all duration-300 relative group cursor-pointer ${
                     hoveredNode === index
-                      ? 'bg-bg-secondary border-[#10B981]/40 shadow-[0_0_15px_rgba(254,6,13,0.03)] dark:shadow-[0_0_15px_rgba(254,6,13,0.08)]'
-                      : 'bg-bg-secondary/40 border-border-primary'
+                      ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/5 scale-[1.01]'
+                      : 'bg-bg-card/40 border-border-primary'
                   }`}
                 >
-                  {/* Number bubble */}
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border font-mono text-xs transition-all duration-300 ${
+                  {/* Icon bubble */}
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border font-mono text-xs transition-all duration-300 ${
                     hoveredNode === index
-                      ? 'bg-bg-primary border-[#10B981] text-text-primary shadow-sm'
+                      ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
                       : 'bg-bg-primary border-border-primary text-text-secondary'
                   }`}>
                     {node.icon}
@@ -115,23 +111,20 @@ export default function AIStory() {
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-2.5">
-                      <h4 className={`text-sm font-bold transition-colors ${
-                        hoveredNode === index ? 'text-text-primary' : 'text-text-primary/90'
-                      }`}>
+                      <h3 className="text-sm font-bold text-text-primary">
                         {node.title}
-                      </h4>
-                      <span className="text-[10px] text-text-secondary font-mono uppercase bg-bg-primary border border-border-primary px-1.5 py-0.5 rounded">
+                      </h3>
+                      <span className="text-[10px] text-text-secondary font-mono bg-bg-primary border border-border-primary px-2 py-0.5 rounded-md">
                         {node.sub}
                       </span>
                     </div>
-                    <p className="text-xs text-text-secondary leading-relaxed max-w-lg transition-colors group-hover:text-text-primary">
+                    <p className="text-xs text-text-secondary leading-relaxed">
                       {node.desc}
                     </p>
                   </div>
 
-                  {/* Tiny indicator arrow */}
                   <div className="absolute right-5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ArrowRight size={13} className="text-[#10B981]" />
+                    <ArrowRight size={14} className="text-emerald-400" />
                   </div>
                 </div>
               ))}

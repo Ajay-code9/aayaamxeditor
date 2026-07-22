@@ -131,10 +131,6 @@ export default function ThemeCustomizerPreview() {
     <div className="w-full bg-bg-secondary border border-border-primary rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-6 pb-4 sm:pb-6 border-b border-border-primary">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 font-mono text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2">
-            <Palette size={12} className="sm:w-3.5 sm:h-3.5" />
-            INTERACTIVE THEME STUDIO
-          </div>
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-text-primary font-mono tracking-tight">
             Live Editor & Terminal Customizer
           </h3>

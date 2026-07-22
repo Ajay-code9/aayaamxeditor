@@ -34,17 +34,14 @@ export default function Security() {
           
           {/* Security Information Copy on Left */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono">
-              06. Enterprise Security
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary leading-tight">
-              Absolute privacy. <br />No data leakage.
+              100% Private. <br />Your Code Stays Yours.
             </h2>
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-              Software engineering is built on trust. AayaamX respects intellectual property with default boundaries. We never train public networks on your code.
+              We respect your privacy. AayaamX keeps your private code and files safe right on your machine.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary/70 leading-relaxed">
-              Our core architecture separates context collation from model evaluation. This guarantees that your proprietary logic, API secrets, and structural dependencies remain local.
+              We never save your code or use your private project files to train public AI models.
             </p>
 
             <div className="pt-4 flex items-center gap-2.5">

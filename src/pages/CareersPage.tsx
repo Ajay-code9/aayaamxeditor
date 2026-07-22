@@ -40,11 +40,8 @@ export default function CareersPage() {
       <section className="min-h-[100dvh] flex flex-col justify-center pt-20 md:pt-28 pb-12 border-b border-border-primary relative overflow-hidden bg-bg-primary transition-colors duration-300">
         <HeroBackgroundAnimation variant="page" />
         <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 text-center my-auto">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-4">
-              08. Talent Pipeline
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-text-primary leading-tight mb-6">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-tight mb-6">
               Build the future of <br />developer flow.
             </h1>
             <p className="text-sm sm:text-lg text-text-secondary leading-relaxed">

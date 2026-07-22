@@ -1,15 +1,10 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, GitBranch, Shield, ArrowRight, Eye, Code, Zap, Play, CheckCircle } from 'lucide-react';
+import { Terminal, Shield, Play, CheckCircle, Sparkles, Zap, Wand2, Lock, FileCode2 } from 'lucide-react';
 import MacTerminalHeader from './MacTerminalHeader';
 
 export default function ProductPresentation() {
-  const [activeTab, setActiveTab] = useState<'workspace' | 'shell' | 'ast'>('workspace');
+  const [activeTab, setActiveTab] = useState<'build' | 'fix' | 'private'>('build');
   const [isCompiling, setIsCompiling] = useState(false);
   const [isCompiled, setIsCompiled] = useState(false);
 
@@ -19,243 +14,246 @@ export default function ProductPresentation() {
     setTimeout(() => {
       setIsCompiling(false);
       setIsCompiled(true);
-    }, 1800);
+    }, 1000);
   }
 
   return (
-    <section id="meet-aayaamx" className="py-24 md:py-32 bg-bg-primary border-b border-border-primary relative transition-colors duration-300">
-      <div className="mx-auto max-w-7xl px-6 md:px-8">
+    <section id="meet-aayaamx" className="py-16 md:py-20 bg-bg-primary border-b border-border-primary relative overflow-hidden transition-colors duration-300">
+      {/* Ambient Glow Accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 blur-[170px] rounded-full pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
         
-        {/* Editorial Heading */}
-        <div className="max-w-2xl mb-16">
-          <div className="text-[#10B981] text-xs font-bold tracking-widest uppercase font-mono mb-3">
-            03. The Product
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary mb-6">
-            Inside the Engine.
-          </h2>
-          <p className="text-base text-text-secondary leading-relaxed">
-            Explore the core structural components of AayaamX. Each interface element is integrated directly with the compiling layer, responding instantly to natural language.
-          </p>
+        {/* Simple Section Header */}
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary mb-3"
+          >
+            Built to Make Coding Simple & Fast.
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-base sm:text-lg text-text-secondary leading-relaxed"
+          >
+            AayaamX acts as your personal AI coding expert. It writes features, fixes bugs, and keeps your data 100% private.
+          </motion.p>
         </div>
 
         {/* Feature Interactive Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Tab buttons sidebar on Left */}
-          <div className="lg:col-span-4 space-y-3">
+          {/* 3 Simple Non-Techy Feature Buttons on Left */}
+          <div className="lg:col-span-4 space-y-4">
+            {/* Feature 1 */}
             <button
-              onClick={() => { setActiveTab('workspace'); setIsCompiled(false); }}
-              className={`w-full text-left p-5 rounded-xl border transition-all duration-300 ${
-                activeTab === 'workspace'
-                  ? 'bg-bg-secondary border-border-primary shadow-xs'
-                  : 'bg-transparent border-transparent hover:bg-bg-secondary/40'
+              onClick={() => { setActiveTab('build'); setIsCompiled(false); }}
+              className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                activeTab === 'build'
+                  ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
+                  : 'bg-bg-card/60 border-border-primary hover:border-text-secondary/40 dark:bg-[#09090d]'
               }`}
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className={`p-1.5 rounded-lg ${activeTab === 'workspace' ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-border-primary text-text-secondary'}`}>
-                  <GitBranch size={16} />
+                <div className={`p-2.5 rounded-xl ${activeTab === 'build' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-border-primary/40 text-text-secondary'}`}>
+                  <Wand2 size={18} />
                 </div>
-                <h3 className="text-sm font-bold text-text-primary">Workspace Agent</h3>
+                <h3 className="text-base font-bold text-text-primary">1. Write Features in Seconds</h3>
               </div>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Refactor entire folder hierarchies with safe dependency tracking. Draft changes, audit diffs, and compile to test.
+              <p className="text-xs text-text-secondary leading-relaxed pl-12">
+                Tell AayaamX what you want to build in plain English. It automatically generates and updates all necessary code files.
               </p>
             </button>
 
+            {/* Feature 2 */}
             <button
-              onClick={() => { setActiveTab('shell'); setIsCompiled(false); }}
-              className={`w-full text-left p-5 rounded-xl border transition-all duration-300 ${
-                activeTab === 'shell'
-                  ? 'bg-bg-secondary border-border-primary shadow-xs'
-                  : 'bg-transparent border-transparent hover:bg-bg-secondary/40'
+              onClick={() => { setActiveTab('fix'); setIsCompiled(false); }}
+              className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                activeTab === 'fix'
+                  ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
+                  : 'bg-bg-card/60 border-border-primary hover:border-text-secondary/40 dark:bg-[#09090d]'
               }`}
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className={`p-1.5 rounded-lg ${activeTab === 'shell' ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-border-primary text-text-secondary'}`}>
-                  <Terminal size={16} />
+                <div className={`p-2.5 rounded-xl ${activeTab === 'fix' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-border-primary/40 text-text-secondary'}`}>
+                  <Zap size={18} />
                 </div>
-                <h3 className="text-sm font-bold text-text-primary">Live Shell Control</h3>
+                <h3 className="text-base font-bold text-text-primary">2. Automatic Bug Fixing</h3>
               </div>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                An intelligence-guided terminal. AI reads compilation trace errors and suggests terminal repairs inline.
+              <p className="text-xs text-text-secondary leading-relaxed pl-12">
+                When code breaks or shows an error, AayaamX detects the problem and fixes it automatically with one click.
               </p>
             </button>
 
+            {/* Feature 3 */}
             <button
-              onClick={() => { setActiveTab('ast'); setIsCompiled(false); }}
-              className={`w-full text-left p-5 rounded-xl border transition-all duration-300 ${
-                activeTab === 'ast'
-                  ? 'bg-bg-secondary border-border-primary shadow-xs'
-                  : 'bg-transparent border-transparent hover:bg-bg-secondary/40'
+              onClick={() => { setActiveTab('private'); setIsCompiled(false); }}
+              className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                activeTab === 'private'
+                  ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
+                  : 'bg-bg-card/60 border-border-primary hover:border-text-secondary/40 dark:bg-[#09090d]'
               }`}
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className={`p-1.5 rounded-lg ${activeTab === 'ast' ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-border-primary text-text-secondary'}`}>
-                  <Shield size={16} />
+                <div className={`p-2.5 rounded-xl ${activeTab === 'private' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-border-primary/40 text-text-secondary'}`}>
+                  <Lock size={18} />
                 </div>
-                <h3 className="text-sm font-bold text-text-primary">AST Vector Map</h3>
+                <h3 className="text-base font-bold text-text-primary">3. 100% Private & Offline</h3>
               </div>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Visualizing local-first symbol indexes. All dependencies and methods are mapped to safeguard code integrity.
+              <p className="text-xs text-text-secondary leading-relaxed pl-12">
+                Your code stays on your computer. Nothing is uploaded to public servers, protecting your intellectual property.
               </p>
             </button>
           </div>
 
-          {/* Sandbox Visualizer Canvas on Right */}
+          {/* Visual Interactive Demo Canvas on Right */}
           <div className="lg:col-span-8">
-            <div className="rounded-2xl border border-border-primary bg-bg-secondary shadow-xl overflow-hidden h-[420px] flex flex-col transition-colors">
+            <div className="rounded-2xl border border-border-primary dark:border-white/15 bg-[#09090e] shadow-2xl overflow-hidden h-[420px] flex flex-col">
               
-              {/* Header */}
-              <MacTerminalHeader title="AayaamX Sandbox Visualizer">
-                <div className="text-[10px] text-text-secondary bg-bg-primary border border-border-primary px-2.5 py-1 rounded-md font-mono transition-colors shadow-2xs">
-                  {activeTab === 'workspace' && 'src/components/auth/jwt.ts'}
-                  {activeTab === 'shell' && '/bin/bash'}
-                  {activeTab === 'ast' && 'symbol_graph.db'}
+              {/* macOS Header */}
+              <MacTerminalHeader title="AayaamX Interactive Studio">
+                <div className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono shadow-xs">
+                  {activeTab === 'build' && '✨ Plain English AI Generator'}
+                  {activeTab === 'fix' && '⚡ 1-Click Error Auto-Repair'}
+                  {activeTab === 'private' && '🔒 100% Offline Vault'}
                 </div>
               </MacTerminalHeader>
 
-              {/* Sandbox Contents */}
-              <div className="flex-1 p-6 relative overflow-hidden bg-bg-primary transition-colors">
+              {/* Interactive Demo Content */}
+              <div className="flex-1 p-6 relative overflow-hidden bg-[#0c0c11]">
                 <AnimatePresence mode="wait">
-                  {activeTab === 'workspace' && (
+                  {/* Demo 1: Write Code */}
+                  {activeTab === 'build' && (
                     <motion.div
-                      key="workspace"
+                      key="build"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="h-full flex flex-col space-y-4 font-mono text-xs"
+                      className="h-full flex flex-col justify-between space-y-4 text-xs font-mono"
                     >
-                      {/* Diff block mockup */}
-                      <div className="border border-border-primary rounded-lg bg-bg-secondary overflow-hidden flex-1 flex flex-col transition-colors">
-                        <div className="bg-bg-primary px-4 py-2 border-b border-border-primary text-[10px] text-text-secondary flex justify-between transition-colors">
-                          <span>Refactor auth flow to support dynamic expirations</span>
-                          <span className="text-[#10B981]">2 files staging</span>
+                      <div className="border border-emerald-500/30 rounded-xl bg-[#121218] p-4 flex-1 flex flex-col justify-between shadow-inner">
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs pb-2 border-b border-white/10">
+                            <Sparkles size={14} />
+                            <span>Your Prompt: "Add user login with password reset"</span>
+                          </div>
+                          
+                          <div className="space-y-2 text-[11px]">
+                            <div className="flex items-center gap-2 text-text-primary">
+                              <FileCode2 size={13} className="text-cyan-400" />
+                              <span>Generating <span className="text-cyan-400 font-bold">src/auth/login.ts</span>...</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-text-primary">
+                              <FileCode2 size={13} className="text-purple-400" />
+                              <span>Updating <span className="text-purple-400 font-bold">src/database/users.db</span>...</span>
+                            </div>
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg text-emerald-400 text-[10px]">
+                              + Connected login API, database model, & security tokens cleanly!
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex-1 p-4 overflow-y-auto space-y-1 select-none text-[11px] leading-relaxed">
-                          <div className="text-text-secondary/60">@@ -12,4 +12,6 @@</div>
-                          <div className="bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400 px-2 rounded -mx-2 line-through">
-                            - const token = jwt.sign(&#123; id &#125;, SECRET, &#123; expiresIn: '1h' &#125;);
-                          </div>
-                          <div className="bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-400 px-2 rounded -mx-2">
-                            + const config = getAuthConfig();
-                          </div>
-                          <div className="bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-400 px-2 rounded -mx-2">
-                            + const token = jwt.sign(&#123; id &#125;, SECRET, &#123; expiresIn: config.ttl &#125;);
-                          </div>
-                          <div className="text-text-secondary pl-2">  return &#123; token, expiration: config.ttl &#125;;</div>
-                        </div>
-                      </div>
 
-                      {/* Interactive compiling controller */}
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-2">
+                        <div className="flex justify-between items-center pt-3 border-t border-white/10">
                           <button
                             onClick={triggerSimulatedBuild}
                             disabled={isCompiling}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-text-primary px-4 py-2 text-xs font-semibold text-bg-primary hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-bold text-slate-950 hover:bg-emerald-400 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/20"
                           >
-                            <Play size={12} />
-                            {isCompiling ? 'CompilingAST...' : 'Verify Change'}
+                            <Play size={12} className="fill-slate-950" />
+                            {isCompiling ? 'Generating...' : 'Simulate Prompt'}
                           </button>
-                        </div>
-                        <div className="text-right">
-                          {isCompiling && <span className="text-xs text-[#10B981] animate-pulse">Running checks...</span>}
+
+                          {isCompiling && <span className="text-xs text-emerald-400 animate-pulse">Building feature files...</span>}
                           {isCompiled && !isCompiling && (
-                            <span className="text-xs text-emerald-500 flex items-center gap-1.5 font-semibold">
-                              <CheckCircle size={12} />
-                              Verification complete. Succeeded in 12ms.
+                            <span className="text-xs text-emerald-400 flex items-center gap-1.5 font-bold">
+                              <CheckCircle size={13} />
+                              Feature created in 0.8 seconds!
                             </span>
                           )}
-                          {!isCompiling && !isCompiled && <span className="text-xs text-text-secondary">Ready to verify</span>}
+                          {!isCompiling && !isCompiled && <span className="text-xs text-text-secondary">Click to test</span>}
                         </div>
                       </div>
                     </motion.div>
                   )}
 
-                  {activeTab === 'shell' && (
+                  {/* Demo 2: Fix Bugs */}
+                  {activeTab === 'fix' && (
                     <motion.div
-                      key="shell"
+                      key="fix"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="h-full flex flex-col font-mono text-xs"
+                      className="h-full flex flex-col text-xs font-mono"
                     >
-                      <div className="border border-[#222222] rounded-lg bg-[#0a0a0a] p-4 text-white flex-1 flex flex-col justify-between">
-                        <div className="space-y-2 select-none">
-                          <div className="flex items-center gap-1.5 text-gray-500">
-                            <span>$</span>
-                            <span>npm run test</span>
+                      <div className="border border-white/10 rounded-xl bg-[#0a0a0e] p-4 text-white flex-1 flex flex-col justify-between shadow-inner space-y-3">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between text-xs pb-2 border-b border-white/10">
+                            <span className="text-red-400 font-bold flex items-center gap-1.5">
+                              ⚠️ Error Detected: Typo in Database Connection
+                            </span>
+                            <span className="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded">Action Required</span>
                           </div>
-                          <div className="text-red-400">
-                            FAIL: src/api/auth.test.ts (TypeError: jwt.sign is not a function)
+
+                          <div className="bg-red-950/30 border border-red-500/20 p-2.5 rounded-lg text-red-300 text-[11px] space-y-1">
+                            <div>- const db = connect_to_database("user_db")</div>
+                            <div className="text-red-400 text-[10px] font-bold">Error: Connection string missing port number!</div>
                           </div>
-                          <div className="text-[#10B981] bg-[#10B981]/10 border border-[#10B981]/20 rounded p-2 text-[11px] leading-relaxed mt-4">
-                            <div className="font-bold flex items-center gap-1 mb-1">
-                              <Zap size={11} className="stroke-[2.5]" />
-                              AayaamX Repair Proposal
+
+                          <div className="bg-emerald-950/40 border border-emerald-500/30 p-2.5 rounded-lg text-emerald-300 text-[11px] space-y-1">
+                            <div className="font-bold text-emerald-400 flex items-center gap-1">
+                              <Zap size={12} /> AayaamX Smart Fix:
                             </div>
-                            <span>You imported jwt from 'jsonwebtoken' but forgot to install the type types or define the mock wrapper. Run /patch:</span>
+                            <div>+ const db = connect_to_database("user_db", 5432)</div>
                           </div>
                         </div>
 
-                        <div className="border-t border-[#222222] pt-3 flex items-center justify-between text-xs text-gray-500">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[#10B981] font-bold animate-pulse">❯</span>
-                            <span className="text-white">/patch install-types</span>
-                          </div>
-                          <span className="text-xs bg-[#222222] text-[#cccccc] px-2 py-0.5 rounded">Press Enter</span>
+                        <div className="border-t border-white/10 pt-3 flex items-center justify-between">
+                          <span className="text-emerald-400 font-bold flex items-center gap-1 text-xs">
+                            <CheckCircle size={14} />
+                            Click "Apply Fix" to auto-repair
+                          </span>
+                          <button className="bg-emerald-500 text-slate-950 font-bold px-3.5 py-1.5 rounded-lg text-xs hover:bg-emerald-400 transition-colors">
+                            Apply Fix
+                          </button>
                         </div>
                       </div>
                     </motion.div>
                   )}
 
-                  {activeTab === 'ast' && (
+                  {/* Demo 3: Private & Offline */}
+                  {activeTab === 'private' && (
                     <motion.div
-                      key="ast"
+                      key="private"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="h-full flex flex-col justify-between"
+                      className="h-full flex flex-col justify-between text-xs"
                     >
-                      {/* Interactive dependency nodes graph made in pure SVG */}
-                      <div className="border border-border-primary rounded-lg bg-bg-secondary flex-1 flex items-center justify-center relative p-6 transition-colors">
-                        <svg viewBox="0 0 400 200" className="w-full h-full max-h-[220px]">
-                          {/* Connection Lines */}
-                          <line x1="80" y1="100" x2="200" y2="50" className="stroke-border-primary" strokeWidth="1.5" />
-                          <line x1="80" y1="100" x2="200" y2="150" className="stroke-border-primary" strokeWidth="1.5" />
-                          <line x1="200" y1="50" x2="320" y2="100" stroke="#10B981" strokeDasharray="3,3" strokeWidth="1.5" />
-                          <line x1="200" y1="150" x2="320" y2="100" className="stroke-border-primary" strokeWidth="1.5" />
+                      <div className="border border-white/10 rounded-xl bg-[#0a0a0e] flex-1 flex flex-col items-center justify-center p-6 text-center space-y-4 shadow-inner">
+                        <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-xl">
+                          <Lock size={32} />
+                        </div>
 
-                          {/* Node 1: Entry */}
-                          <circle cx="80" cy="100" r="16" className="fill-bg-primary stroke-text-primary" strokeWidth="2" />
-                          <text x="80" y="104" textAnchor="middle" fontSize="10" fontFamily="monospace" fontWeight="bold" className="fill-text-primary">UI</text>
+                        <div className="space-y-2 max-w-md">
+                          <h4 className="text-lg font-bold text-text-primary">Your Code Never Leaves Your Laptop</h4>
+                          <p className="text-xs text-text-secondary leading-relaxed">
+                            AayaamX runs 100% offline using your device’s local hardware. Zero telemetry, zero cloud exposure, and zero monthly API costs.
+                          </p>
+                        </div>
 
-                          {/* Node 2: Route Auth Controller */}
-                          <circle cx="200" cy="50" r="20" className="fill-text-primary stroke-[#10B981]" strokeWidth="2" />
-                          <text x="200" y="54" textAnchor="middle" className="fill-bg-primary" fontSize="10" fontFamily="monospace" fontWeight="bold">AUTH</text>
-
-                          {/* Node 3: Database driver */}
-                          <circle cx="200" cy="150" r="20" className="fill-bg-primary stroke-border-primary" strokeWidth="2" />
-                          <text x="200" y="154" textAnchor="middle" fontSize="10" fontFamily="monospace" className="fill-text-secondary">DB</text>
-
-                          {/* Node 4: Cryptographic Engine */}
-                          <circle cx="320" cy="100" r="24" fill="#10B981" />
-                          <text x="320" y="104" textAnchor="middle" fill="white" fontSize="9" fontFamily="monospace" fontWeight="bold">CRYPTO</text>
-                        </svg>
-
-                        {/* Graph descriptive overlay */}
-                        <div className="absolute bottom-4 left-4 right-4 bg-bg-primary/95 border border-border-primary backdrop-blur-xs p-3 rounded-lg flex justify-between items-center text-[11px] transition-colors">
-                          <div>
-                            <span className="font-bold text-text-primary">Token Integrity Indexer</span>
-                            <span className="text-text-secondary ml-2">Mapping cryptographic bindings...</span>
-                          </div>
-                          <span className="text-[10px] text-emerald-500 font-bold uppercase font-mono">
-                            ✓ No leaks detected
-                          </span>
+                        <div className="flex items-center gap-4 text-xs font-mono text-emerald-400 font-bold pt-2">
+                          <span className="bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">✓ 0 Bytes Sent Online</span>
+                          <span className="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full border border-cyan-500/20">✓ Works Without WiFi</span>
                         </div>
                       </div>
                     </motion.div>

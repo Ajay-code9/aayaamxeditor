@@ -1,291 +1,222 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useMotionValue, useTransform, useSpring } from 'motion/react';
-import { ArrowRight, Terminal, Cpu, GitBranch, ShieldCheck, Check } from 'lucide-react';
-import HeroBackgroundAnimation from './HeroBackgroundAnimation';
-import MacTerminalHeader from './MacTerminalHeader';
+import { ArrowRight, Sparkles, Shield, Cpu, Terminal, CheckCircle2, FileCode, GitBranch, Settings, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AnimatedGroup } from '@/components/ui/animated-group';
+
+const transitionVariants = {
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: 'blur(12px)',
+      y: 16,
+    },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      y: 0,
+      transition: {
+        type: 'spring',
+        bounce: 0.2,
+        duration: 1.2,
+      },
+    },
+  },
+};
 
 export default function Hero() {
-  const [typedCode, setTypedCode] = useState('');
-  const [activeTab, setActiveTab] = useState<'index.ts' | 'ai_agent.rs'>('index.ts');
-  const [compilerStatus, setCompilerStatus] = useState<'idle' | 'analyzing' | 'compiling' | 'success'>('success');
-  const [performanceMs, setPerformanceMs] = useState(14);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [smallStars, setSmallStars] = useState<string>('');
+  const [mediumStars, setMediumStars] = useState<string>('');
+  const [bigStars, setBigStars] = useState<string>('');
 
-  // Magnetic 3D tilt effect on hover for premium presentation
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const rotateX = useSpring(useTransform(y, [-300, 300], [10, -10]), { damping: 25, stiffness: 120 });
-  const rotateY = useSpring(useTransform(x, [-300, 300], [-10, 10]), { damping: 25, stiffness: 120 });
+  const generateStarBoxShadow = (count: number): string => {
+    let shadows = [];
+    for (let i = 0; i < count; i++) {
+      const x = Math.floor(Math.random() * 2000);
+      const y = Math.floor(Math.random() * 2000);
+      shadows.push(`${x}px ${y}px var(--star-color)`);
+    }
+    return shadows.join(', ');
+  };
 
-  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = event.clientX - rect.left - width / 2;
-    const mouseY = event.clientY - rect.top - height / 2;
-    x.set(mouseX);
-    y.set(mouseY);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  // Typewriter and AI code-rewrite simulation loop
   useEffect(() => {
-    let isMounted = true;
-    const codeSequences = {
-      'index.ts': [
-        // Sequence 1: The user types erroneous code
-        { text: 'export async function getUserMetrics(id: string) {\n  const res = await db.query("SELECT * FROM users WHERE id = " + id);\n  return res.rows[0];\n}', status: 'idle' },
-        // Sequence 2: Compiler flags error (SQL injection and lack of type checking)
-        { text: 'export async function getUserMetrics(id: string) {\n  const res = await db.query("SELECT * FROM users WHERE id = " + id);\n  return res.rows[0];\n}', status: 'analyzing' },
-        // Sequence 3: AI rewrites it with type-safe parameters safely
-        { text: 'export async function getUserMetrics(id: string): Promise<User | null> {\n  const res = await db.query<User>(\n    "SELECT * FROM users WHERE id = $1",\n    [id]\n  );\n  return res.rows[0] ?? null;\n}', status: 'compiling' },
-        // Sequence 4: Success
-        { text: 'export async function getUserMetrics(id: string): Promise<User | null> {\n  const res = await db.query<User>(\n    "SELECT * FROM users WHERE id = $1",\n    [id]\n  );\n  return res.rows[0] ?? null;\n}', status: 'success' }
-      ],
-      'ai_agent.rs': [
-        { text: 'fn index_workspace() -> Result<(), IndexError> {\n  let files = walk_dir("./src")?;\n  for file in files {\n    spawn_thread(move || {\n      vectorize(file);\n    });\n  }\n  Ok(())\n}', status: 'idle' },
-        { text: 'fn index_workspace() -> Result<(), IndexError> {\n  let files = walk_dir("./src")?;\n  for file in files {\n    spawn_thread(move || {\n      vectorize(file);\n    });\n  }\n  Ok(())\n}', status: 'analyzing' },
-        { text: 'pub fn index_workspace() -> Result<(), IndexError> {\n  let files = walk_dir("./src")?;\n  files.par_iter().try_for_each(|file| {\n    let embedding = compute_local_embedding(file)?;\n    store_in_memory_index(file, embedding)\n  })?;\n  Ok(())\n}', status: 'compiling' },
-        { text: 'pub fn index_workspace() -> Result<(), IndexError> {\n  let files = walk_dir("./src")?;\n  files.par_iter().try_for_each(|file| {\n    let embedding = compute_local_embedding(file)?;\n    store_in_memory_index(file, embedding)\n  })?;\n  Ok(())\n}', status: 'success' }
-      ]
-    };
-
-    let step = 0;
-    const playSimulation = async () => {
-      while (isMounted) {
-        const sequence = codeSequences[activeTab];
-        const current = sequence[step % sequence.length];
-        
-        if (current.status === 'idle') {
-          // Slow typing animation for the base error state
-          setCompilerStatus('idle');
-          let partial = '';
-          const fullText = current.text;
-          for (let i = 0; i < fullText.length; i += 2) {
-            if (!isMounted) return;
-            partial = fullText.substring(0, i + 2);
-            setTypedCode(partial);
-            await new Promise((r) => setTimeout(r, 10));
-          }
-          await new Promise((r) => setTimeout(r, 1200));
-        } else if (current.status === 'analyzing') {
-          setCompilerStatus('analyzing');
-          await new Promise((r) => setTimeout(r, 1000));
-        } else if (current.status === 'compiling') {
-          setCompilerStatus('compiling');
-          // Fast reveal representing quick AI transformation
-          setTypedCode(current.text);
-          await new Promise((r) => setTimeout(r, 1400));
-        } else if (current.status === 'success') {
-          setCompilerStatus('success');
-          setPerformanceMs(Math.floor(Math.random() * 8) + 8); // dynamic ultra-low latency representation
-          await new Promise((r) => setTimeout(r, 4500));
-          step = 0; // reset
-          continue;
-        }
-        step++;
-      }
-    };
-
-    playSimulation();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [activeTab]);
+    setSmallStars(generateStarBoxShadow(500));
+    setMediumStars(generateStarBoxShadow(150));
+    setBigStars(generateStarBoxShadow(60));
+  }, []);
 
   return (
-    <section className="relative overflow-hidden bg-bg-primary min-h-[100dvh] flex flex-col justify-center pt-14 pb-8 sm:pt-16 sm:pb-6 md:pt-20 md:pb-12 border-b border-border-primary transition-colors duration-300">
-      {/* Dynamic Animated Background */}
-      <HeroBackgroundAnimation variant="hero" />
+    <main className="overflow-hidden bg-bg-primary text-text-primary relative transition-colors duration-300">
+      {/* Cosmic Parallax Background Star Layers */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 opacity-80">
+        <div className="cosmic-stars" style={{ boxShadow: smallStars }} />
+        <div className="cosmic-stars-medium" style={{ boxShadow: mediumStars }} />
+        <div className="cosmic-stars-large" style={{ boxShadow: bigStars }} />
+      </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 relative z-10 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center">
-          {/* Confident Copy Column */}
-          <div className="lg:col-span-5 flex flex-col items-start space-y-3 sm:space-y-4 md:space-y-6">
-            <div className="space-y-2 sm:space-y-3 md:space-y-4">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[1.75rem] leading-[1.15] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary"
-              >
-                The AI is not <br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-[#00106B] via-[#0284C7] to-[#10B981] bg-clip-text text-transparent dark:from-[#38BDF8] dark:to-[#10B981]">a sidebar.</span>
-              </motion.h1>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[11px] sm:text-sm md:text-base lg:text-lg text-text-secondary leading-relaxed max-w-md"
-              >
-                AayaamX integrates the reasoning model directly inside the editor buffer and compiling layer. No extension latency. Zero context fragmentation. Real-time background safety checks.
-              </motion.p>
-            </div>
+      {/* Floating Low-Opacity Code Snippets on Edges */}
+      <div className="hidden xl:block absolute top-36 left-8 font-mono text-[11px] text-emerald-500/25 pointer-events-none select-none z-0 space-y-1">
+        <div>const engine = new KernelEventLoop();</div>
+        <div>await engine.indexLocalAST();</div>
+        <div className="text-cyan-500/20">// Sub-15ms IPC memory mapping</div>
+        <div>return &#123; latency: '0ms' &#125;;</div>
+      </div>
 
-            {/* Premium CTA Block */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full flex flex-col xs:flex-row gap-2.5 sm:gap-3"
-            >
+      <div className="hidden xl:block absolute top-36 right-8 font-mono text-[11px] text-cyan-500/25 pointer-events-none select-none z-0 space-y-1 text-right">
+        <div>pub async fn synthesize_ast() &#123;</div>
+        <div>  let model = OfflineLLM::load();</div>
+        <div className="text-purple-500/20">  // 100% Zero-Data Retention</div>
+        <div>  model.predict_inline().await;</div>
+        <div>&#125;</div>
+      </div>
+
+      <section className="relative z-10 pt-24 pb-16 sm:pt-36 sm:pb-20">
+        {/* Soft Aurora Glow Behind Headline */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[450px] bg-gradient-to-tr from-emerald-500/15 via-teal-500/10 to-cyan-500/5 blur-[140px] rounded-full pointer-events-none z-0" />
+
+        <div className="mx-auto max-w-5xl px-6 md:px-8 relative z-10 text-center flex flex-col items-center">
+          <AnimatedGroup
+            variants={{
+              container: {
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08,
+                    delayChildren: 0.15,
+                  },
+                },
+              },
+              ...transitionVariants,
+            }}
+            className="flex flex-col items-center w-full"
+          >
+            {/* 1. Centered Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary max-w-3xl leading-[1.12] mb-6 text-center mx-auto">
+              Code 10x Faster with AI Built Right Into Your <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">Editor</span>
+            </h1>
+            
+            {/* 3. Short Supporting Description */}
+            <p className="max-w-xl mx-auto text-base sm:text-xl text-text-secondary leading-relaxed text-center mb-10 font-normal">
+              AayaamX is a super-fast AI code editor. Write, fix, and understand your code instantly — with zero delay and complete privacy.
+            </p>
+
+            {/* 4. Primary + Secondary CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10 w-full max-w-md mx-auto">
               <Link
                 to="/download"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00106B] via-[#0284C7] to-[#10B981] hover:brightness-110 px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 md:py-3.5 text-xs sm:text-sm font-semibold text-white shadow-md shadow-[#00106B]/20 transition-all active:scale-98"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-8 py-4 text-base font-extrabold text-slate-950 shadow-xl shadow-emerald-500/25 hover:bg-emerald-400 hover:scale-[1.02] transition-all cursor-pointer"
               >
-                Download AayaamX
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                <span>Start Building Free</span>
+                <ArrowRight size={16} />
               </Link>
+              
               <Link
-                to="/features"
-                className="inline-flex items-center justify-center rounded-full border border-border-primary bg-bg-secondary px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 md:py-3.5 text-xs sm:text-sm font-semibold text-text-primary shadow-xs transition-all hover:bg-bg-primary"
+                to="/pricing"
+                className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-border-primary bg-bg-card/80 px-8 py-4 text-base font-bold text-text-primary hover:bg-bg-secondary hover:border-text-secondary/40 shadow-md transition-all cursor-pointer"
               >
-                Explore Technology
+                Request a Demo
               </Link>
-            </motion.div>
+            </div>
 
-            {/* Quick trust metrics */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="flex flex-col xs:flex-row flex-wrap gap-x-4 sm:gap-x-6 gap-y-1.5 sm:gap-y-2 pt-3 sm:pt-4 border-t border-border-primary w-full"
-            >
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-text-secondary">
-                <Check size={12} className="text-[#10B981]" />
+            {/* 5. Small Trust Row */}
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-text-secondary font-mono pt-4 border-t border-border-primary/40">
+              <span className="flex items-center gap-1.5 text-emerald-400">
+                <CheckCircle2 size={13} />
+                <span>★ 14,280 GitHub Stars</span>
+              </span>
+              <span className="hidden sm:inline text-text-secondary/40">•</span>
+              <span className="flex items-center gap-1.5">
+                <Cpu size={13} className="text-cyan-400" />
+                <span>Sub-15ms C++ Engine</span>
+              </span>
+              <span className="hidden sm:inline text-text-secondary/40">•</span>
+              <span className="flex items-center gap-1.5">
+                <Shield size={13} className="text-purple-400" />
                 <span>Zero Data Retention</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-text-secondary">
-                <Check size={12} className="text-[#10B981]" />
-                <span>Local vector indexes</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-text-secondary">
-                <Check size={12} className="text-[#10B981]" />
-                <span>Rust & C++ native core</span>
-              </div>
-            </motion.div>
-          </div>
+              </span>
+            </div>
+          </AnimatedGroup>
 
-          {/* Premium Interactive Editor presentation */}
-          <div className="lg:col-span-7 flex justify-center lg:justify-end w-full">
-            <motion.div
-              ref={containerRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full max-w-[620px] rounded-xl sm:rounded-2xl border border-white/10 dark:border-white/10 bg-[#0c0c0e] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col h-[240px] xs:h-[260px] sm:h-[320px] md:h-[350px] lg:h-[390px] backdrop-blur-xl"
-            >
-              {/* Realistic macOS Header */}
-              <MacTerminalHeader title="aayaamx-workspace">
-                <div className="flex gap-1 bg-[#121215] rounded-lg p-0.5 border border-white/5">
-                  <button
-                    onClick={() => { setActiveTab('index.ts'); setTypedCode(''); }}
-                    className={`px-2.5 py-1 rounded-md text-[10px] font-mono transition-all cursor-pointer flex items-center gap-1.5 ${
-                      activeTab === 'index.ts' ? 'bg-[#222228] text-white font-medium shadow-xs border border-white/10' : 'text-[#888890] hover:text-[#cccccc]'
-                    }`}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                    index.ts
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab('ai_agent.rs'); setTypedCode(''); }}
-                    className={`px-2.5 py-1 rounded-md text-[10px] font-mono transition-all cursor-pointer flex items-center gap-1.5 ${
-                      activeTab === 'ai_agent.rs' ? 'bg-[#222228] text-white font-medium shadow-xs border border-white/10' : 'text-[#888890] hover:text-[#cccccc]'
-                    }`}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />
-                    ai_agent.rs
-                  </button>
-                </div>
-              </MacTerminalHeader>
+          {/* Dual Theme Code Editor Image Showcase with Bottom Gradient Fade Mask */}
+          <div className="mt-12 sm:mt-16 w-full max-w-6xl mx-auto relative group">
+            {/* Soft Ambient Radial Glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/25 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition duration-1000" />
 
-              {/* Main IDE area */}
-              <div className="flex-1 flex overflow-hidden">
-                {/* Left Mini Sidebar */}
-                <div className="w-8 sm:w-12 bg-[#0c0c0c] border-r border-[#222222] flex flex-col items-center py-3 sm:py-4 gap-3 sm:gap-4 text-[#444444]">
-                  <Terminal size={14} className="text-[#10B981]" />
-                  <Cpu size={14} />
-                  <GitBranch size={14} />
-                  <ShieldCheck size={14} />
-                </div>
+            <div className="relative rounded-2xl border border-border-primary bg-bg-card shadow-2xl overflow-hidden transition-all">
+              {/* Bottom Gradient Opacity Fade Mask */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-bg-primary via-bg-primary/80 to-transparent z-20" />
 
-                {/* Editor code area */}
-                <div className="flex-1 p-3 sm:p-5 overflow-auto relative font-mono text-[10px] sm:text-xs text-[#cccccc] leading-relaxed">
-                  {/* Subtle code backdrop grid */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40 pointer-events-none" />
-                  
-                  {/* Active Agent Overlay notification */}
-                  <div className="absolute top-2 right-2 sm:top-3 sm:right-4 flex items-center gap-1 sm:gap-1.5 rounded-md bg-[#161616] border border-[#262626] px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[8px] sm:text-[10px]">
-                    <span className={`w-1.5 h-1.5 rounded-full ${
-                      compilerStatus === 'idle' ? 'bg-amber-500 animate-pulse' :
-                      compilerStatus === 'analyzing' ? 'bg-blue-500 animate-ping' :
-                      compilerStatus === 'compiling' ? 'bg-[#10B981] animate-pulse' :
-                      'bg-emerald-500'
-                    }`} />
-                    <span className="text-[#888888]">
-                      {compilerStatus === 'idle' && 'Waiting for input'}
-                      {compilerStatus === 'analyzing' && 'Analyzing safety...'}
-                      {compilerStatus === 'compiling' && 'Synthesizing clean code'}
-                      {compilerStatus === 'success' && 'Compiler Verified'}
-                    </span>
-                  </div>
+              {/* Dark Theme Code Editor Screenshot */}
+              <img
+                src="/code-editor-blacktheme.png"
+                alt="AayaamX AI Code Editor Dark Theme"
+                className="hidden dark:block w-full h-auto object-cover rounded-2xl relative z-10"
+              />
 
-                  {/* Rendering preformatted code */}
-                  <pre className="relative z-10 select-none text-[#cccccc] whitespace-pre-wrap break-words">
-                    {typedCode.split('\n').map((line, idx) => {
-                      // Basic aesthetic color highlighting
-                      let highlighted = line;
-                      const isTypeSafe = line.includes('Promise') || line.includes('par_iter') || line.includes('$1');
-                      
-                      return (
-                        <div key={idx} className="flex gap-4">
-                          <span className="text-[#333333] w-4 text-right">{idx + 1}</span>
-                          <span className={isTypeSafe && compilerStatus === 'success' ? 'text-emerald-400 transition-colors' : ''}>
-                            {line}
-                          </span>
-                        </div>
-                      );
-                    })}
-                    <span className="inline-block w-1.5 h-4 bg-[#10B981] ml-0.5 animate-pulse" />
-                  </pre>
-                </div>
-              </div>
-
-              {/* Console/Agent reasoning step logs footer */}
-              <div className="h-8 sm:h-10 bg-[#0c0c0c] border-t border-[#222222] px-2 sm:px-4 flex items-center justify-between text-[8px] sm:text-[10px] font-mono text-[#666666]">
-                <div className="flex items-center gap-1 sm:gap-2 min-w-0">
-                  <span className="text-emerald-500 font-bold">✓</span>
-                  <span className="hidden xs:inline">AayaamX Lang Server:</span>
-                  <span className="xs:hidden">Server:</span>
-                  <span className="text-white truncate">Active (v1.0.4)</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-                  <span>Latency: <span className="text-[#10B981] font-bold">{performanceMs}ms</span></span>
-                  <span className="h-3 w-px bg-[#222222] hidden xs:block" />
-                  <span className="hidden xs:inline">Build: <span className="text-emerald-500 font-semibold">Green</span></span>
-                </div>
-              </div>
-            </motion.div>
+              {/* Light/Bright Theme Code Editor Screenshot */}
+              <img
+                src="/code-editor-brighttheme.png"
+                alt="AayaamX AI Code Editor Bright Theme"
+                className="block dark:hidden w-full h-auto object-cover rounded-2xl relative z-10"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Customer Vector Logo Cloud Bar */}
+      <section className="py-12 border-t border-b border-border-primary/60 bg-bg-secondary/50 relative z-10">
+        <div className="mx-auto max-w-7xl px-6 md:px-8 text-center">
+          <p className="text-xs font-mono font-bold tracking-widest uppercase text-text-secondary mb-8">
+            TRUSTED BY ENGINEERS AT WORLD-CLASS TEAMS
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 opacity-75 hover:opacity-100 transition-opacity">
+            {/* NVIDIA */}
+            <div className="flex items-center gap-2 text-text-primary font-extrabold text-lg sm:text-xl tracking-tight select-none">
+              <svg className="w-6 h-6 fill-current text-emerald-400" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              <span>NVIDIA</span>
+            </div>
+
+            {/* GitHub */}
+            <div className="flex items-center gap-2 text-text-primary font-bold text-lg sm:text-xl tracking-tight select-none">
+              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span>GitHub</span>
+            </div>
+
+            {/* OpenAI */}
+            <div className="flex items-center gap-2 text-text-primary font-bold text-lg sm:text-xl tracking-tight select-none">
+              <svg className="w-6 h-6 fill-current text-cyan-400" viewBox="0 0 24 24">
+                <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729" />
+              </svg>
+              <span>OpenAI</span>
+            </div>
+
+            {/* Vercel */}
+            <div className="flex items-center gap-2 text-text-primary font-bold text-lg sm:text-xl tracking-tight select-none">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 1L24 22H0L12 1Z" />
+              </svg>
+              <span>Vercel</span>
+            </div>
+
+            {/* Stripe */}
+            <div className="flex items-center gap-2 text-text-primary font-extrabold text-lg sm:text-xl tracking-tight select-none">
+              <span className="text-indigo-400">stripe</span>
+            </div>
+
+            {/* Supabase */}
+            <div className="flex items-center gap-2 text-text-primary font-bold text-lg sm:text-xl tracking-tight select-none">
+              <svg className="w-5 h-5 fill-current text-emerald-400" viewBox="0 0 24 24">
+                <path d="M13.359 1.131L1.472 15.653c-.5.61-.066 1.536.72 1.536h7.954l-1.077 5.68c-.144.76.786 1.258 1.34.72l11.887-14.522c.5-.61.066-1.536-.72-1.536h-7.954l1.077-5.68c.144-.76-.786-1.258-1.34-.72z" />
+              </svg>
+              <span>Supabase</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
