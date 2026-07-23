@@ -95,8 +95,8 @@ export default function Hero() {
             </h1>
 
             {/* 3. Short Supporting Description */}
-            <p className="max-w-xl mx-auto text-base sm:text-xl text-text-secondary leading-relaxed text-center mb-10 font-normal">
-              Code Aayaam is a super-fast AI code editor. Write, fix, and understand your code instantly — with zero delay and complete privacy.
+            <p className="max-w-xl mx-auto text-base sm:text-lg text-text-secondary leading-relaxed text-center mb-10 font-normal">
+              An ultra-fast, privacy-first AI code editor designed for instant context awareness, zero latency, and fluid intelligence.
             </p>
 
             {/* 4. Primary + Secondary CTA Buttons */}

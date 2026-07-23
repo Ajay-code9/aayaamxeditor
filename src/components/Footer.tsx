@@ -60,7 +60,7 @@ export default function Footer() {
               Compile your first block of code tonight.
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-              Available for macOS (Apple Silicon / Intel), Windows 11 x64, and Linux (amd64 / arm64). Migrate settings in seconds.
+              Native support for macOS, Windows 11, and Linux. Seamless configuration import in seconds.
             </p>
 
             {/* Quick OS Download buttons */}
@@ -114,7 +114,7 @@ export default function Footer() {
               <Logo size="md" />
             </Link>
             <p className="text-xs text-text-secondary leading-relaxed max-w-sm">
-              Code Aayaam — The AI-first development suite designed to make programming fluid. Built for high performance, intelligence, and privacy.
+              Code Aayaam — Next-generation AI code editor engineered for high performance, local privacy, and fluid developer workflows.
             </p>
           </div>
 

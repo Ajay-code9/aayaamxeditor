@@ -132,8 +132,8 @@ export default function AboutPage() {
               </span>
             </h1>
             
-            <p className="text-base sm:text-xl text-text-secondary leading-relaxed max-w-3xl mx-auto">
-              We built AayaamX because developer tools got slow, bloated, and dependent on cloud sidebars. We redesigned the code editor from the metal up to make programming feel fluid, local, and instantaneous.
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto font-normal">
+              Engineered from the ground up to eliminate latency, safeguard privacy, and deliver instant AI intelligence directly within your local environment.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
