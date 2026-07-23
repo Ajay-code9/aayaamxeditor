@@ -5,9 +5,10 @@ interface LogoProps {
   showSubtitle?: boolean;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   variant?: 'full' | 'icon';
+  theme?: 'dark' | 'light' | 'auto';
 }
 
-export default function Logo({ className = '', showSubtitle = true, size = 'md', variant = 'full' }: LogoProps) {
+export default function Logo({ className = '', showSubtitle = true, size = 'md', variant = 'full', theme = 'auto' }: LogoProps) {
   // Height sizing
   const heightClasses = {
     sm: 'h-6',
@@ -29,6 +30,13 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md',
     lg: 'text-[10px] sm:text-[11px] tracking-[0.3em]',
     xl: 'text-[12px] sm:text-[14px] tracking-[0.35em]',
   };
+
+  const textColorClass = 
+    theme === 'light'
+      ? 'text-slate-950 font-black'
+      : theme === 'dark'
+      ? 'text-white'
+      : 'text-slate-950 dark:text-white';
 
   if (variant === 'icon') {
     return (
@@ -54,7 +62,7 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md',
       {/* Brand Text Block */}
       <div className="flex flex-col justify-center">
         {/* CODE AAYAAM Title */}
-        <div className={`font-extrabold leading-none text-[#00106B] dark:text-white font-sans flex items-center ${textSizes[size]}`}>
+        <div className={`font-extrabold leading-none ${textColorClass} font-sans flex items-center ${textSizes[size]}`}>
           <span>CODE AAYAAM</span>
         </div>
       </div>

@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import {
-  ArrowLeft,
+  Home,
+  FolderGit2,
   Key,
+  Sparkles,
+  BookOpen,
+  LogOut,
   ShieldCheck,
-  Sliders,
-  CheckCircle2,
-  Lock,
   Save,
-  Cpu,
-  RefreshCw
+  ArrowLeft
 } from 'lucide-react';
 import Logo from '../components/Logo';
 
@@ -35,40 +35,107 @@ export default function DashboardSettingsPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="bg-slate-50 text-slate-900 min-h-screen pb-24 transition-colors duration-300"
+      className="bg-slate-50 text-slate-900 min-h-screen flex transition-colors duration-300"
     >
-      {/* Top Header Bar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between h-16">
-          <div className="flex items-center gap-4">
-            <Link
-              to="/dashboard"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 px-3 py-1.5 rounded-lg transition-all"
-            >
-              <ArrowLeft size={14} />
-              <span>Back to Dashboard</span>
-            </Link>
-            <span className="text-slate-300">|</span>
-            <span className="text-sm font-bold text-slate-900">Developer Settings</span>
+      {/* 1. LEFT SIDEBAR NAVIGATION */}
+      <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between p-5 shrink-0 min-h-screen sticky top-0 h-screen shadow-xs">
+        <div className="space-y-8">
+          <div className="px-2">
+            <Logo size="md" theme="light" />
           </div>
 
-          <Link to="/">
-            <Logo size="sm" />
+          <nav className="space-y-1 text-xs font-semibold">
+            <Link
+              to="/dashboard"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+            >
+              <Home size={16} className="text-slate-500" />
+              <span>Overview</span>
+            </Link>
+
+            <Link
+              to="/dashboard"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+            >
+              <FolderGit2 size={16} className="text-slate-500" />
+              <span>Workspaces</span>
+            </Link>
+
+            <div className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
+              <Key size={16} className="text-emerald-600" />
+              <span>API Keys & Settings</span>
+            </div>
+
+            <Link
+              to="/upgrade"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+            >
+              <Sparkles size={16} className="text-emerald-600" />
+              <span>Upgrade to Pro</span>
+            </Link>
+
+            <Link
+              to="/dashboard"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+            >
+              <BookOpen size={16} className="text-slate-500" />
+              <span>App Developer Docs</span>
+            </Link>
+          </nav>
+        </div>
+
+        <div className="pt-4 border-t border-slate-200 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xs font-extrabold text-emerald-700">
+                DR
+              </div>
+              <div className="overflow-hidden">
+                <p className="text-xs font-bold text-slate-900 truncate">Developer</p>
+                <p className="text-[10px] text-slate-500 truncate">dev@codeaayaam.com</p>
+              </div>
+            </div>
+            <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+              Hobby
+            </span>
+          </div>
+
+          <Link
+            to="/signin"
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-slate-200 bg-slate-50 text-[11px] font-bold text-slate-600 hover:bg-slate-100 transition-colors"
+          >
+            <LogOut size={13} />
+            <span>Sign Out</span>
           </Link>
         </div>
-      </header>
+      </aside>
 
-      {/* Main Settings Form Container */}
-      <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-8 space-y-8">
+      {/* 2. MAIN SETTINGS CONTENT AREA */}
+      <main className="flex-1 p-6 sm:p-10 space-y-8 max-w-5xl">
         
+        <div className="flex items-center justify-between pb-6 border-b border-slate-200">
+          <div>
+            <h1 className="font-editorial text-3xl sm:text-4xl font-normal text-slate-900 tracking-tight">Developer Settings</h1>
+            <p className="text-xs text-slate-600 mt-1">Configure your personal API keys and local privacy vault.</p>
+          </div>
+
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 px-3.5 py-2 rounded-xl transition-all"
+          >
+            <ArrowLeft size={14} />
+            <span>Back to Overview</span>
+          </Link>
+        </div>
+
         <form onSubmit={handleSave} className="space-y-8">
           
-          {/* Section 1: Bring Your Own Key (BYOK) */}
+          {/* BYOK Section */}
           <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
             <div>
               <div className="flex items-center gap-2 text-slate-900">
                 <Key size={20} className="text-emerald-600" />
-                <h2 className="text-lg font-extrabold">Bring Your Own Key (BYOK)</h2>
+                <h2 className="text-base font-extrabold">Bring Your Own Key (BYOK)</h2>
               </div>
               <p className="text-xs text-slate-600 mt-1">
                 Configure your personal AI provider keys. Your keys are encrypted locally with hardware-bound AES-256 keys.
@@ -122,12 +189,12 @@ export default function DashboardSettingsPage() {
             </div>
           </div>
 
-          {/* Section 2: Privacy & Security Controls */}
+          {/* Privacy Vault Section */}
           <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
             <div>
               <div className="flex items-center gap-2 text-slate-900">
                 <ShieldCheck size={20} className="text-emerald-600" />
-                <h2 className="text-lg font-extrabold">Privacy & Local Security Vault</h2>
+                <h2 className="text-base font-extrabold">Privacy & Local Security Vault</h2>
               </div>
               <p className="text-xs text-slate-600 mt-1">
                 Strict Zero Data Retention controls to guarantee complete source code privacy.
@@ -173,7 +240,6 @@ export default function DashboardSettingsPage() {
             </div>
           </div>
 
-          {/* Action Bar */}
           <div className="flex items-center justify-between pt-2">
             <span className="text-xs font-semibold text-emerald-700">
               {saved && '✓ All settings updated and encrypted successfully!'}
