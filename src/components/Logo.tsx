@@ -53,26 +53,10 @@ export default function Logo({ className = '', showSubtitle = true, size = 'md',
 
       {/* Brand Text Block */}
       <div className="flex flex-col justify-center">
-        {/* AAYAAMX Title */}
+        {/* CODE AAYAAM Title */}
         <div className={`font-extrabold leading-none text-[#00106B] dark:text-white font-sans flex items-center ${textSizes[size]}`}>
-          <span>AAYAAMX</span>
+          <span>CODE AAYAAM</span>
         </div>
-
-        {/* Orange Accent Line with Diamond Decoration */}
-        <div className="relative w-full h-[2px] bg-gradient-to-r from-[#00106B] via-[#EA580C] to-[#10B981] dark:from-[#38BDF8] dark:via-[#F97316] dark:to-[#34D399] my-0.5 sm:my-1 flex items-center justify-center">
-          <div className="absolute flex items-center gap-0.5 px-0.5 bg-bg-primary rounded-full">
-            <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 rotate-45 bg-[#EA580C]" />
-            <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rotate-45 bg-[#F97316]" />
-            <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 rotate-45 bg-[#EA580C]" />
-          </div>
-        </div>
-
-        {/* TECHNOLOGIES Subtitle */}
-        {showSubtitle && (
-          <div className={`font-mono font-bold text-[#16A34A] dark:text-[#34D399] uppercase leading-none ${subtitleSizes[size]}`}>
-            TECHNOLOGIES
-          </div>
-        )}
       </div>
     </div>
   );

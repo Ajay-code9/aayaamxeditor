@@ -114,7 +114,7 @@ export default function Footer() {
               <Logo size="md" />
             </Link>
             <p className="text-xs text-text-secondary leading-relaxed max-w-sm">
-              AayaamX Technologies — The AI-first development suite designed to make programming fluid. Built for high performance, intelligence, and privacy.
+              Code Aayaam — The AI-first development suite designed to make programming fluid. Built for high performance, intelligence, and privacy.
             </p>
           </div>
 
@@ -140,7 +140,7 @@ export default function Footer() {
 
         {/* Bottom copyright section */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-text-secondary">
-          <p>© 2026 AayaamX Technologies Inc. All rights reserved.</p>
+          <p>© 2026 Code Aayaam Inc. All rights reserved.</p>
           <div className="flex gap-6 text-[10px]">
             <Link to="/security" className="hover:text-text-primary transition-colors">Security Trust Posture</Link>
             <Link to="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>

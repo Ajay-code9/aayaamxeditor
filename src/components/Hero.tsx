@@ -96,7 +96,7 @@ export default function Hero() {
 
             {/* 3. Short Supporting Description */}
             <p className="max-w-xl mx-auto text-base sm:text-xl text-text-secondary leading-relaxed text-center mb-10 font-normal">
-              AayaamX is a super-fast AI code editor. Write, fix, and understand your code instantly — with zero delay and complete privacy.
+              Code Aayaam is a super-fast AI code editor. Write, fix, and understand your code instantly — with zero delay and complete privacy.
             </p>
 
             {/* 4. Primary + Secondary CTA Buttons */}

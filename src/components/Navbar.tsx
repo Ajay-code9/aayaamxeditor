@@ -139,8 +139,8 @@ export default function Navbar() {
             <Link
               to="/download"
               className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-r from-[#00106B] via-[#0284C7] to-[#10B981] text-white shadow-xs cursor-pointer overflow-hidden active:scale-95 transition-all"
-              aria-label="Download AayaamX"
-              title="Download AayaamX"
+              aria-label="Download Code Aayaam"
+              title="Download Code Aayaam"
             >
               <Download size={15} />
             </Link>
@@ -227,7 +227,7 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00106B] via-[#0284C7] to-[#10B981] py-3 text-xs font-semibold text-white shadow-md"
                 >
-                  Download AayaamX
+                  Download Code Aayaam
                   <ArrowRight size={14} />
                 </Link>
               </div>

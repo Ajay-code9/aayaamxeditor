@@ -165,7 +165,7 @@ export default function AboutPage() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/40 via-teal-400/40 to-emerald-500/40 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300 pointer-events-none" />
               <span className="relative inline-flex items-center gap-2.5 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-emerald-300 bg-slate-950/90 border border-emerald-500/50 px-4 py-1.5 rounded-full backdrop-blur-xl shadow-lg">
                 <Sparkles size={12} className="text-emerald-400 animate-pulse" />
-                <span>WHY WE BUILT AAYAAMX</span>
+                <span>WHY WE BUILT CODE AAYAAM</span>
               </span>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function AboutPage() {
               </p>
 
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-                AayaamX breaks this paradigm by embedding a native C++ language server, a zero-lag event loop, and lightweight offline AI intelligence directly into your editor buffer.
+                Code Aayaam breaks this paradigm by embedding a native C++ language server, a zero-lag event loop, and lightweight offline AI intelligence directly into your editor buffer.
               </p>
 
               <div className="space-y-3 pt-2">
