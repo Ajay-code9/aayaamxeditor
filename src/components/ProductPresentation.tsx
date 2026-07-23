@@ -68,7 +68,7 @@ export default function ProductPresentation() {
                 <h3 className="text-base font-bold text-text-primary">1. Write Features in Seconds</h3>
               </div>
               <p className="text-xs text-text-secondary leading-relaxed pl-12">
-                Tell AayaamX what you want to build in plain English. It automatically generates and updates all necessary code files.
+                Describe your feature specifications naturally to AayaamX. It intelligently generates and synchronizes all required codebase files.
               </p>
             </button>
 
