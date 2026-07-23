@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import HeroBackgroundAnimation from '../components/HeroBackgroundAnimation';
 import { ArrowRight, Mail, Lock, User, CheckCircle2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +20,9 @@ export default function SignUpPage() {
     setTimeout(() => {
       setSubmitting(false);
       setSuccess(true);
+      setTimeout(() => {
+        navigate('/onboarding');
+      }, 1000);
     }, 1200);
   }
 

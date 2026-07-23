@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import HeroBackgroundAnimation from '../components/HeroBackgroundAnimation';
 import { ArrowRight, Mail, Lock, CheckCircle2, AlertCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 
 export default function SignInPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -18,6 +19,9 @@ export default function SignInPage() {
     setTimeout(() => {
       setSubmitting(false);
       setSuccess(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000);
     }, 1200);
   }
 

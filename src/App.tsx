@@ -28,6 +28,10 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
+import OnboardingPage from './pages/OnboardingPage';
+import DashboardPage from './pages/DashboardPage';
+import DashboardSettingsPage from './pages/DashboardSettingsPage';
+import UpgradePage from './pages/UpgradePage';
 
 export default function App() {
   return (
@@ -59,6 +63,10 @@ export default function App() {
                 <Route path="/status" element={<StatusPage />} />
                 <Route path="/signin" element={<SignInPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/onboarding" element={<OnboardingPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/settings" element={<DashboardSettingsPage />} />
+                <Route path="/upgrade" element={<UpgradePage />} />
                 <Route path="/privacy" element={<PrivacyPage />} />
                 <Route path="/terms" element={<TermsPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
