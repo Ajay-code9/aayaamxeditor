@@ -1,20 +1,67 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Shield, Play, CheckCircle, Sparkles, Zap, Wand2, Lock, FileCode2 } from 'lucide-react';
+import { Terminal, Shield, Play, CheckCircle, Sparkles, Zap, Wand2, Lock, FileCode2, RefreshCw } from 'lucide-react';
 import MacTerminalHeader from './MacTerminalHeader';
+
+const PROMPTS = [
+  {
+    prompt: 'Add user login with password reset',
+    file1: 'src/auth/login.ts',
+    file2: 'src/database/users.db',
+    result: '+ Connected login API, database model, & security tokens cleanly!'
+  },
+  {
+    prompt: 'Create dark mode theme provider',
+    file1: 'src/context/ThemeContext.tsx',
+    file2: 'src/components/ThemeToggle.tsx',
+    result: '+ Created theme context, local storage persistence, & CSS variables!'
+  },
+  {
+    prompt: 'Build REST API endpoint for user profiles',
+    file1: 'src/api/profiles.ts',
+    file2: 'src/models/ProfileModel.ts',
+    result: '+ Implemented CRUD handlers, auth middleware, & response schemas!'
+  }
+];
 
 export default function ProductPresentation() {
   const [activeTab, setActiveTab] = useState<'build' | 'fix' | 'private'>('build');
+  const [promptIndex, setPromptIndex] = useState(0);
   const [isCompiling, setIsCompiling] = useState(false);
   const [isCompiled, setIsCompiled] = useState(false);
+  const [simStep, setSimStep] = useState(0);
+
+  const [isFixing, setIsFixing] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
+
+  const currentPrompt = PROMPTS[promptIndex];
 
   function triggerSimulatedBuild() {
     setIsCompiling(true);
     setIsCompiled(false);
+    setSimStep(0);
+
+    setTimeout(() => setSimStep(1), 300);
+    setTimeout(() => setSimStep(2), 650);
+    setTimeout(() => setSimStep(3), 1000);
     setTimeout(() => {
       setIsCompiling(false);
       setIsCompiled(true);
-    }, 1000);
+    }, 1400);
+  }
+
+  function handleNextPrompt() {
+    setPromptIndex((prev) => (prev + 1) % PROMPTS.length);
+    setIsCompiled(false);
+    setSimStep(0);
+  }
+
+  function handleApplyFix() {
+    setIsFixing(true);
+    setTimeout(() => {
+      setIsFixing(false);
+      setIsFixed(true);
+    }, 900);
   }
 
   return (
@@ -54,7 +101,7 @@ export default function ProductPresentation() {
           <div className="lg:col-span-4 space-y-4">
             {/* Feature 1 */}
             <button
-              onClick={() => { setActiveTab('build'); setIsCompiled(false); }}
+              onClick={() => { setActiveTab('build'); setIsCompiled(false); setSimStep(0); }}
               className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
                 activeTab === 'build'
                   ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
@@ -74,7 +121,7 @@ export default function ProductPresentation() {
 
             {/* Feature 2 */}
             <button
-              onClick={() => { setActiveTab('fix'); setIsCompiled(false); }}
+              onClick={() => { setActiveTab('fix'); setIsFixed(false); setIsFixing(false); }}
               className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
                 activeTab === 'fix'
                   ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
@@ -94,7 +141,7 @@ export default function ProductPresentation() {
 
             {/* Feature 3 */}
             <button
-              onClick={() => { setActiveTab('private'); setIsCompiled(false); }}
+              onClick={() => { setActiveTab('private'); }}
               className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
                 activeTab === 'private'
                   ? 'bg-bg-card border-emerald-500/50 shadow-lg shadow-emerald-500/10 dark:bg-[#0e0e14]'
@@ -119,10 +166,10 @@ export default function ProductPresentation() {
               
               {/* macOS Header */}
               <MacTerminalHeader title="AayaamX Interactive Studio">
-                <div className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md shadow-xs">
-                  {activeTab === 'build' && '✨ Plain English AI Generator'}
-                  {activeTab === 'fix' && '⚡ 1-Click Error Auto-Repair'}
-                  {activeTab === 'private' && '🔒 100% Offline Vault'}
+                <div className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5">
+                  {activeTab === 'build' && <>✨ Natural Language AI Generator</>}
+                  {activeTab === 'fix' && <>⚡ 1-Click Error Auto-Repair</>}
+                  {activeTab === 'private' && <>🔒 100% Offline Vault</>}
                 </div>
               </MacTerminalHeader>
 
@@ -141,23 +188,65 @@ export default function ProductPresentation() {
                     >
                       <div className="border border-emerald-500/30 rounded-xl bg-[#121218] p-4 flex-1 flex flex-col justify-between shadow-inner">
                         <div className="space-y-3">
-                          <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs pb-2 border-b border-white/10">
-                            <Sparkles size={14} />
-                            <span>Your Prompt: "Add user login with password reset"</span>
+                          <div className="flex items-center justify-between text-emerald-400 font-bold text-xs pb-2 border-b border-white/10">
+                            <div className="flex items-center gap-2">
+                              <Sparkles size={14} className={isCompiling ? "animate-spin text-emerald-400" : "text-emerald-400"} />
+                              <span>Your Prompt: "{currentPrompt.prompt}"</span>
+                            </div>
+                            <button
+                              onClick={handleNextPrompt}
+                              disabled={isCompiling}
+                              className="text-[10px] text-text-secondary hover:text-emerald-400 flex items-center gap-1 transition-colors cursor-pointer"
+                              title="Try another prompt"
+                            >
+                              <RefreshCw size={11} />
+                              <span>Cycle Prompt</span>
+                            </button>
                           </div>
                           
-                          <div className="space-y-2 text-[11px]">
-                            <div className="flex items-center gap-2 text-text-primary">
-                              <FileCode2 size={13} className="text-cyan-400" />
-                              <span>Generating <span className="text-cyan-400 font-bold">src/auth/login.ts</span>...</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-text-primary">
-                              <FileCode2 size={13} className="text-purple-400" />
-                              <span>Updating <span className="text-purple-400 font-bold">src/database/users.db</span>...</span>
-                            </div>
-                            <div className="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg text-emerald-400 text-[10px]">
-                              + Connected login API, database model, & security tokens cleanly!
-                            </div>
+                          <div className="space-y-2.5 text-[11px] min-h-[120px]">
+                            {simStep >= 1 && (
+                              <motion.div 
+                                initial={{ opacity: 0, x: -10 }} 
+                                animate={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-2 text-cyan-400 font-bold"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                                <span>Analyzing workspace AST graph & dependencies...</span>
+                              </motion.div>
+                            )}
+
+                            {simStep >= 2 && (
+                              <motion.div 
+                                initial={{ opacity: 0, x: -10 }} 
+                                animate={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-2 text-text-primary"
+                              >
+                                <FileCode2 size={13} className="text-cyan-400 shrink-0" />
+                                <span>Generating <span className="text-cyan-400 font-bold">{currentPrompt.file1}</span>...</span>
+                              </motion.div>
+                            )}
+
+                            {simStep >= 3 && (
+                              <motion.div 
+                                initial={{ opacity: 0, x: -10 }} 
+                                animate={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-2 text-text-primary"
+                              >
+                                <FileCode2 size={13} className="text-purple-400 shrink-0" />
+                                <span>Updating <span className="text-purple-400 font-bold">{currentPrompt.file2}</span>...</span>
+                              </motion.div>
+                            )}
+
+                            {(isCompiled || simStep >= 3) && (
+                              <motion.div 
+                                initial={{ opacity: 0, scale: 0.95 }} 
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-lg text-emerald-400 text-[10px] font-bold shadow-xs"
+                              >
+                                {currentPrompt.result}
+                              </motion.div>
+                            )}
                           </div>
                         </div>
 
@@ -165,20 +254,25 @@ export default function ProductPresentation() {
                           <button
                             onClick={triggerSimulatedBuild}
                             disabled={isCompiling}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-bold text-slate-950 hover:bg-emerald-400 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/20"
+                            className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-extrabold text-slate-950 hover:bg-emerald-400 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/25 active:scale-95"
                           >
                             <Play size={12} className="fill-slate-950" />
-                            {isCompiling ? 'Generating...' : 'Simulate Prompt'}
+                            <span>{isCompiling ? 'Running C++ Engine...' : 'Simulate Prompt'}</span>
                           </button>
 
-                          {isCompiling && <span className="text-xs text-emerald-400 animate-pulse">Building feature files...</span>}
-                          {isCompiled && !isCompiling && (
-                            <span className="text-xs text-emerald-400 flex items-center gap-1.5 font-bold">
-                              <CheckCircle size={13} />
-                              Feature created in 0.8 seconds!
+                          {isCompiling && (
+                            <span className="text-xs text-emerald-400 animate-pulse flex items-center gap-1.5">
+                              <RefreshCw size={12} className="animate-spin" />
+                              Compiling feature files...
                             </span>
                           )}
-                          {!isCompiling && !isCompiled && <span className="text-xs text-text-secondary">Click to test</span>}
+                          {isCompiled && !isCompiling && (
+                            <span className="text-xs text-emerald-400 flex items-center gap-1.5 font-bold">
+                              <CheckCircle size={14} className="text-emerald-400" />
+                              Feature created & verified in 0.4 seconds!
+                            </span>
+                          )}
+                          {!isCompiling && !isCompiled && <span className="text-xs text-text-secondary">Click button to test live simulation</span>}
                         </div>
                       </div>
                     </motion.div>
@@ -197,32 +291,69 @@ export default function ProductPresentation() {
                       <div className="border border-white/10 rounded-xl bg-[#0a0a0e] p-4 text-white flex-1 flex flex-col justify-between shadow-inner space-y-3">
                         <div className="space-y-3">
                           <div className="flex items-center justify-between text-xs pb-2 border-b border-white/10">
-                            <span className="text-red-400 font-bold flex items-center gap-1.5">
-                              ⚠️ Error Detected: Typo in Database Connection
+                            <span className={`${isFixed ? 'text-emerald-400' : 'text-red-400'} font-bold flex items-center gap-1.5`}>
+                              {isFixed ? (
+                                <>✓ Error Resolved Successfully</>
+                              ) : (
+                                <>⚠️ Error Detected: Connection String Missing Port</>
+                              )}
                             </span>
-                            <span className="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded">Action Required</span>
+                            <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${isFixed ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                              {isFixed ? 'Repaired' : 'Action Required'}
+                            </span>
                           </div>
 
-                          <div className="bg-red-950/30 border border-red-500/20 p-2.5 rounded-lg text-red-300 text-[11px] space-y-1">
-                            <div>- const db = connect_to_database("user_db")</div>
-                            <div className="text-red-400 text-[10px] font-bold">Error: Connection string missing port number!</div>
-                          </div>
-
-                          <div className="bg-emerald-950/40 border border-emerald-500/30 p-2.5 rounded-lg text-emerald-300 text-[11px] space-y-1">
-                            <div className="font-bold text-emerald-400 flex items-center gap-1">
-                              <Zap size={12} /> AayaamX Smart Fix:
+                          {!isFixed ? (
+                            <div className="bg-red-950/30 border border-red-500/20 p-2.5 rounded-lg text-red-300 text-[11px] space-y-1">
+                              <div>- const db = connect_to_database("user_db")</div>
+                              <div className="text-red-400 text-[10px] font-bold">Error: Connection string missing required port parameter!</div>
                             </div>
-                            <div>+ const db = connect_to_database("user_db", 5432)</div>
-                          </div>
+                          ) : (
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              className="bg-emerald-950/50 border border-emerald-500/40 p-2.5 rounded-lg text-emerald-300 text-[11px] space-y-1"
+                            >
+                              <div className="font-bold text-emerald-400 flex items-center gap-1.5">
+                                <CheckCircle size={13} /> AayaamX Smart Fix Applied:
+                              </div>
+                              <div className="font-bold text-emerald-300">+ const db = connect_to_database("user_db", 5432)</div>
+                            </motion.div>
+                          )}
                         </div>
 
                         <div className="border-t border-white/10 pt-3 flex items-center justify-between">
                           <span className="text-emerald-400 font-bold flex items-center gap-1 text-xs">
-                            <CheckCircle size={14} />
-                            Click "Apply Fix" to auto-repair
+                            {isFixed ? (
+                              <span className="text-emerald-400 flex items-center gap-1.5">
+                                <CheckCircle size={14} />
+                                0 compilation errors remaining!
+                              </span>
+                            ) : (
+                              <span>Click "Apply Fix" to auto-repair</span>
+                            )}
                           </span>
-                          <button className="bg-emerald-500 text-slate-950 font-bold px-3.5 py-1.5 rounded-lg text-xs hover:bg-emerald-400 transition-colors">
-                            Apply Fix
+                          <button
+                            onClick={handleApplyFix}
+                            disabled={isFixing || isFixed}
+                            className="bg-emerald-500 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs hover:bg-emerald-400 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/20 active:scale-95 flex items-center gap-1.5"
+                          >
+                            {isFixing ? (
+                              <>
+                                <RefreshCw size={12} className="animate-spin" />
+                                Applying Fix...
+                              </>
+                            ) : isFixed ? (
+                              <>
+                                <CheckCircle size={12} />
+                                Repaired
+                              </>
+                            ) : (
+                              <>
+                                <Zap size={12} />
+                                Apply Fix
+                              </>
+                            )}
                           </button>
                         </div>
                       </div>
