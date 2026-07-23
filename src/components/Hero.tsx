@@ -96,7 +96,7 @@ export default function Hero() {
 
             {/* 3. Short Supporting Description */}
             <p className="max-w-xl mx-auto text-base sm:text-lg text-text-secondary leading-relaxed text-center mb-10 font-normal">
-              Built to make you extraordinarily productive, Code Aayaam is the ultimate AI-first code editor.
+              Built to make you extraordinarily productive, Code Aayaam is the best AI code editor.
             </p>
 
             {/* 4. Primary + Secondary CTA Buttons */}
